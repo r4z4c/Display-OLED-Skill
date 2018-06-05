@@ -20,3 +20,6 @@ class ShowOnDisplaySkill(MycroftSkill):
 
 	def handle_show_on_display_intent(self, message):
         	self.speak_dialog("is.okay")
+		
+def create_skill():
+    return ShowOnDisplaySkill()
