@@ -7,10 +7,10 @@ __author__ = 'usia'
 
 LOGGER = getLogger(__name__)
 
-class ShowOnDisplaySkill(MycroftSkill):
+class DisplayOLEDSkill(MycroftSkill):
 
 	def __init__(self):
-		super(ShowOnDisplaySkill, self).__init__(name="ShowOnDisplaySkill")
+		super(DisplayOLEDSkill, self).__init__(name="DisplayOLEDSkill")
 
 	def initialize(self):
 		show_on_display_intent = IntentBuilder("ShowDisplayIntent").require("ShowOnDisplay").build()
@@ -20,4 +20,4 @@ class ShowOnDisplaySkill(MycroftSkill):
 		self.speak_dialog("is.okay")
 		
 def create_skill():
-	return ShowOnDisplaySkill()
+	return DisplayOLEDSkill()
