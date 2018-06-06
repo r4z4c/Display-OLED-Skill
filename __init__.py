@@ -20,4 +20,4 @@ class ShowOnDisplaySkill(MycroftSkill):
 		self.speak_dialog("is.okay")
 		
 def create_skill():
-    return ShowOnDisplaySkill()
+	return ShowOnDisplaySkill()
