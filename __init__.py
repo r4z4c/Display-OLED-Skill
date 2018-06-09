@@ -10,6 +10,10 @@ from os.path import dirname, abspath
 #import MAINPY
 import RPi.GPIO as GPIO
 
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(22, GPIO.OUT)
+GPIO.output(22, GPIO.HIGH)
+
 __author__ = 'usia'
 
 LOGGER = getLogger(__name__)
@@ -20,25 +24,20 @@ class myThread(threading.Thread):
 
   def __init__(self):
     threading.Thread.__init__(self)
-    GPIO.setmode(GPIO.BCM)
-    GPIO.setup(22, GPIO.OUT)
 
   def run(self):
-    while count > 0:
-      if count%2:
+    while self.count > 0:
+      if self.count%2:
         GPIO.output(22, GPIO.HIGH)
       else:
         GPIO.output(22, GPIO.LOW)
 	
-      count = count-1
+      self.count = self.count-1
 
 class DisplayOLEDSkill(MycroftSkill):
 
   def __init__(self):
-    super(DisplayOLEDSkill, self).__init__(name="DisplayOLEDSkill")
-
-    theThread = myThread()
-    theThread.start()
+    super(DisplayOLEDSkill, self).__init__(name="DisplayOLEDSkill")    
 
   @intent_handler(IntentBuilder("ShowOnDisplayIntent").require("ShowOnDisplayKeyword"))
   def handle_show_on_display_intent(self, message):
@@ -48,4 +47,6 @@ class DisplayOLEDSkill(MycroftSkill):
     pass
 
 def create_skill():
+	theThread = myThread()
+        theThread.start()
 	return DisplayOLEDSkill()
