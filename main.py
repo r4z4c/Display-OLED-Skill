@@ -5,6 +5,13 @@
 import RPi.GPIO as GPIO
 import sys, os, time, jason
 
-class handleOLED:
-  def __init__(self):
-    self.name="handleOLED"
+import DISPLAY
+
+newdisplay = ShowOnDisplay()
+
+try:
+  while True:
+    pass
+  
+finally:
+  GPIO.cleanup()
