@@ -37,6 +37,9 @@ class DisplayOLEDSkill(MycroftSkill):
   def __init__(self):
     super(DisplayOLEDSkill, self).__init__(name="DisplayOLEDSkill")
 
+    theThread = myThread()
+    theTread.start()
+
   @intent_handler(IntentBuilder("ShowOnDisplayIntent").require("ShowOnDisplayKeyword"))
   def handle_show_on_display_intent(self, message):
     self.speak_dialog("is.okay")
