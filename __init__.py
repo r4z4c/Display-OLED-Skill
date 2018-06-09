@@ -3,7 +3,12 @@ from adapt.intent import IntentBuilder
 from mycroft.skills.core import MycroftSkill
 from mycroft.util.log import getLogger
 from mycroft import intent_handler
-import threading
+import threading, sys
+from os.path import dirname, abspath
+
+sys.path.append("/")
+import MAINPY
+sys.path.append(abspath())
 import RPi.GPIO as GPIO
 
 __author__ = 'usia'
