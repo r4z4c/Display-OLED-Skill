@@ -47,6 +47,6 @@ class DisplayOLEDSkill(MycroftSkill):
     pass
 
 def create_skill():
-	theThread = myThread()
-        theThread.start()
-	return DisplayOLEDSkill()
+  theThread = myThread()
+  theThread.start()
+  return DisplayOLEDSkill()
