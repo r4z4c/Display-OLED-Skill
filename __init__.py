@@ -16,7 +16,7 @@ class DisplayOLEDSkill(MycroftSkill):
     #show_on_display_intent = IntentBuilder("ShowDisplayIntent").require("ShowOnDisplay").build()
     #self.register_intent(show_on_display_intent, self.handle_show_on_display_intent)
 
-  @intent_handler(IntentBuilder(ShowOnDisplay).require("ShowOnDisplay"))
+  @intent_handler(IntentBuilder("ShowDisplayIntent").require("ShowOnDisplay"))
   def handle_show_on_display_intent(self, message):
     self.speak_dialog("is.okay")
 		
