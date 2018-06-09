@@ -12,11 +12,11 @@ a=u"°" # to display special strings
  
 Display_on = True
 
-class handleOLED():
+class handleOLED:
   def __init__(self):
     super(handleOLED, self).__init__(name="handleOLED")
     
-  def currentTime(stringa, stringb):
+  def currentTime(self, stringa, stringb):
     now = datetime.datetime.now()
     nowyear = now.year
     nowmonth = now.month
@@ -73,9 +73,9 @@ x = padding
  
 # Load default font.
 # font = ImageFont.load_default() # Wenn keine eigene Schrift vorhanden ist!!!! 
-font = ImageFont.truetype("font/arial.ttf", 12) # Schriftart, Schriftgröße
-font_b = ImageFont.truetype("font/arial.ttf", 18)
-font_c = ImageFont.truetype("font/arial.ttf", 14)
+font = ImageFont.load_default()) # Schriftart, Schriftgröße
+font_b = ImageFont.load_default()
+font_c = ImageFont.load_default()
  
 # Write one line of text.
 draw.text((x, top+25), 'Start', font=font_b, fill=255)
