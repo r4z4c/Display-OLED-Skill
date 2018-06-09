@@ -10,9 +10,17 @@ from os.path import dirname, abspath
 #import MAINPY
 import RPi.GPIO as GPIO
 
+def ButtonHandler(channel):
+  if GPIO.input(channel):
+    GPIO.output(22, GPIO.HIGH)
+  else:
+    GPIO.output(22, GPIO.LOW)
+
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(22, GPIO.OUT)
 GPIO.output(22, GPIO.HIGH)
+GPIO.setup(27, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.add_event_detect(27,GPIO.BOTH,ButtonHandler)
 
 __author__ = 'usia'
 
@@ -47,6 +55,6 @@ class DisplayOLEDSkill(MycroftSkill):
     pass
 
 def create_skill():
-  theThread = myThread()
-  theThread.start()
+  #theThread = myThread()
+  #theThread.start()
   return DisplayOLEDSkill()
