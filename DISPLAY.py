@@ -29,9 +29,9 @@ class ShowOnDisplay():
   x = padding
   
   font_default = ImageFont.load_default()
-  font = ImageFont.truetype("font/arial.ttf", 12)
-  font_b = ImageFont.truetype("font/arial.ttf", 18)
-  font_c = ImageFont.truetype("font/arial.ttf", 14)
+  font = ImageFont.truetype("arial.ttf", 12)
+  font_b = ImageFont.truetype("arial.ttf", 18)
+  font_c = ImageFont.truetype("arial.ttf", 14)
   
   
   def __init__(self):
