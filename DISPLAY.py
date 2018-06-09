@@ -20,7 +20,7 @@ class ShowOnDisplay:
   height = disp.height
   image = Image.new('1', (width, height))
   
-  draw = ImageDraw.Draw(self.image)
+  draw = ImageDraw.Draw(image)
   
   padding = None
   shape_width = None
