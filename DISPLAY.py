@@ -7,7 +7,7 @@ from PIL import Image, ImageDraw, ImageFont
 a=u"°" # to display special strings
 
 
-class ShowOnDisplay:
+class ShowOnDisplay():
   
   disp_on = True
 
