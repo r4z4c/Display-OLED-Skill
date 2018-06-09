@@ -4,7 +4,6 @@ from mycroft.skills.core import MycroftSkill
 from mycroft.util.log import getLogger
 from mycroft import intent_handler
 import threading
-import MAINPY
 import RPi.GPIO as GPIO
 
 __author__ = 'usia'
