@@ -22,12 +22,12 @@ class ShowOnDisplay():
   
   draw = ImageDraw.Draw(image)
   
-  padding = None
-  shape_width = None
-  top = None
-  bottom = None
+  padding = 2
+  shape_width = 20
+  top = padding
+  bottom = height-padding
   
-  x = None
+  x = padding
   
   font_default = ImageFont.load_default()
   font = ImageFont.truetype("font/arial.ttf", 12)
@@ -42,11 +42,20 @@ class ShowOnDisplay():
     self.disp.clear()
     self.disp.display()
     
-    self.draw.rectangle((0,0,width,height), outline=0, fill=0)
+    self.draw.rectangle((0,0,self.width,self.height), outline=0, fill=0)
     # Write one line of text.
-    self.draw.text((x, top+25), 'Initialiying...', font_default, fill=255)
+    self.draw.text((self.x, self.top+25), 'Initializing...', self.font_default, fill=255)
     self.disp.image(image)
     self.disp.display()
     
   def reset(self):
     pass
+
+display = ShowOnDisplay()
+
+try:
+  while True:
+    pass
+
+finally:
+  pass
