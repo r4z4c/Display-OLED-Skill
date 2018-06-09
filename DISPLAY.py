@@ -1,4 +1,3 @@
-#!/usr/bin/python
 # coding=utf-8
 
 import Adafruit_SSD1306
@@ -49,13 +48,8 @@ class ShowOnDisplay():
     self.disp.display()
     
   def reset(self):
-    pass
+    self.disp.clear()
+    self.disp.display()
 
-display = ShowOnDisplay()
-
-try:
-  while True:
-    pass
-
-finally:
-  pass
+def create():
+  return ShowOnDisplay()
