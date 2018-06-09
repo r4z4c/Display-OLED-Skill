@@ -6,8 +6,8 @@ from mycroft import intent_handler
 import threading, sys
 from os.path import dirname, abspath
 
-sys.path.append(abspath(dirname(__file__)))
-import MAINPY
+#sys.path.append(abspath(dirname(__file__)))
+#import MAINPY
 import RPi.GPIO as GPIO
 
 __author__ = 'usia'
