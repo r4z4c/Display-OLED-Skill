@@ -38,7 +38,7 @@ class DisplayOLEDSkill(MycroftSkill):
     super(DisplayOLEDSkill, self).__init__(name="DisplayOLEDSkill")
 
     theThread = myThread()
-    theTread.start()
+    theThread.start()
 
   @intent_handler(IntentBuilder("ShowOnDisplayIntent").require("ShowOnDisplayKeyword"))
   def handle_show_on_display_intent(self, message):
