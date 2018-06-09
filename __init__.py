@@ -9,15 +9,16 @@ LOGGER = getLogger(__name__)
 
 class DisplayOLEDSkill(MycroftSkill):
 
-	def __init__(self):
-		super(DisplayOLEDSkill, self).__init__(name="DisplayOLEDSkill")
+  def __init__(self):
+    super(DisplayOLEDSkill, self).__init__(name="DisplayOLEDSkill")
 
-	def initialize(self):
-		show_on_display_intent = IntentBuilder("ShowDisplayIntent").require("ShowOnDisplay").build()
-		self.register_intent(show_on_display_intent, self.handle_show_on_display_intent)
+  #def initialize(self):
+    #show_on_display_intent = IntentBuilder("ShowDisplayIntent").require("ShowOnDisplay").build()
+    #self.register_intent(show_on_display_intent, self.handle_show_on_display_intent)
 
-	def handle_show_on_display_intent(self, message):
-		self.speak_dialog("is.okay")
+  @intent_handler(IntentBuilder(ShowOnDisplay).require("ShowOnDisplay"))
+  def handle_show_on_display_intent(self, message):
+    self.speak_dialog("is.okay")
 		
 def create_skill():
 	return DisplayOLEDSkill()
