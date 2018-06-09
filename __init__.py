@@ -3,7 +3,7 @@ from adapt.intent import IntentBuilder
 from mycroft.skills.core import MycroftSkill
 from mycroft.util.log import getLogger
 from mycroft import intent_handler
-import threading, sys
+import threading, sys, time
 from os.path import dirname, abspath
 
 #sys.path.append(abspath(dirname(__file__)))
@@ -31,7 +31,7 @@ class myThread(threading.Thread):
         GPIO.output(22, GPIO.HIGH)
       else:
         GPIO.output(22, GPIO.LOW)
-	
+      time.sleep(2)
       self.count = self.count-1
 
 class DisplayOLEDSkill(MycroftSkill):
