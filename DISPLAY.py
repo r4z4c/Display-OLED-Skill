@@ -44,7 +44,7 @@ class ShowOnDisplay():
     self.draw.rectangle((0,0,self.width,self.height), outline=0, fill=0)
     # Write one line of text.
     self.draw.text((self.x, self.top+25), 'Initializing...', font=self.font_default, fill=255)
-    self.disp.image(image)
+    self.disp.image(self.image)
     self.disp.display()
     
   def reset(self):
