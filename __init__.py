@@ -2,6 +2,7 @@
 from adapt.intent import IntentBuilder
 from mycroft.skills.core import MycroftSkill
 from mycroft.util.log import getLogger
+from mycroft import intent_handler
 
 __author__ = 'usia'
 
