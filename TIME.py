@@ -5,7 +5,7 @@ class theTime:
   def __init__(self):
     self.name = "theTime"
     
-  def currentTime(self):
+  def textTime(self):
     now = datetime.datetime.now()
     
     nowhour = now.hour
@@ -16,7 +16,7 @@ class theTime:
     
     return nowTime
     
-  def currentDate(self):
+  def textDate(self):
     now = datetime.datetime.now()
     
     nowyear = now.year
