@@ -31,13 +31,13 @@ class myDisplay:
   bsnooze2 = 6
   
   menudepth = 0
-  mainmenu[] = {0,{{2, 2, 2}, {2, 2, 2}, {2, 2}}, {},{1}}
+  mainmenu = [0, 0, 0, 0,]
   
   editstate = false
   editdepth = 0
   
-  theTime = None
-  theDate = None
+  theTime = {}
+  theDate = {}
   
   
   
@@ -66,19 +66,38 @@ class myDisplay:
         if self.editstate:
           
         else:
-          if mainmenu[0] == 0:
+          if mainmenu[0] == 0: #Time/Date
             if menudepth == 0:
-              mainmenu[0] += 1
-          if mainmenu[0] == 1:
-            if menudepth == 0:
-              mainmenu[0] += 1
-            elif menudepth == 1:
-              if mainmenu[1] == 0:
-                mainmenu[1]
-            elif menudepth == 2
+              mainmenu[0] += 1 #to Config
       
-          elif mainmenu[] == 
-            
+          elif mainmenu[0] == 1: #Config
+            if menudepth == 0: 
+              mainmenu[0] += 1 #to Musik
+            elif menudepth == 1: 
+              if mainmenu[1] == 0:
+                mainmenu[1] += 1 #to Date
+              elif mainmenu[1] == 1:
+                mainmenu[1] += 1 #to Out/In
+            elif menudepth == 2:
+              if mainmenu[1] == 0: #Time
+                if mainmenu[2] == 0: #Hour
+                  if theTime[0] < 12:
+                    theTime[0] += 1
+                  else:
+                    theTime[0] = 1
+      
+                elif mainmenu[2] == 1: #Minute
+                  
+      
+                elif mainmenu[2] == 2: #Second
+                  
+      
+              elif mainmenu[1] == 1: #Date
+      
+              elif mainmenu[1] == 2: #Out/In
+      
+          elif mainmenu[0] == 2:
+            if 
             
         break;
       case self.bdown:
