@@ -13,9 +13,7 @@ import TIME
 
 import RPi.GPIO as GPIO
 
-menudepth = 0
-mainmenu = [0, 0, 0]
-submenu = [0, 0, 0, 0, 0]
+mainmenu = [0, 0, 0, 0]
 
 __author__ = 'usia'
 
@@ -33,6 +31,9 @@ class myDisplay:
   bmenu = 24
   bsnooze1 = 5
   bsnooze2 = 6
+  
+  menudepth = 0
+  themenu = [[], [], [], [[datetime.datetime.now().hour, datetime.datetime.now().minute], [datetime.datetime.now().day, datetime.datetime.now().month, datetime.datetime.now().year], [0, 0]]]
   
   editstate = false
   editdepth = 0
@@ -62,75 +63,37 @@ class myDisplay:
     GPIO.add_event_detect(self.bsnooze2,GPIO.HIGH,self.ButtonHandler)
   
   def ButtonHandler(channel):
-    switch(channel) {
-      case self.bup:
-        if not self.editstate:
-          if mainmenu[0] == 1: #Alarm
-            if menudepth == 0:
-              mainmenu[0] -= 1 #to Time/Date
-            elif menudepth == 1:
-      
-          elif mainmenu[0] == 2: #Timer
-            if menudepth == 0:
-              mainmenu[0] -= 1 #to Alarm
-            elif menudepth == 1:
-      
-          elif mainmenu[0] == 2: #Music
-            if menudepth == 0:
-              mainmenu[0] -= 1 #to Timer
-            elif menudepth == 1:
-      
-          elif mainmenu[0] == 3: #Config
-            if menudepth == 0: 
-              mainmenu[0] -= 1 #to Music
-            elif menudepth == 1: 
-              if mainmenu[1] == 1:
-                mainmenu[1] -= 1 #to Time
-              elif mainmenu[1] == 2:
-                mainmenu[1] -= 1 #to Date
-
-          
-          
-          elif mainmenu[0] == 3: #Alarm
-            if menudepth == 0:
-              mainmenu[0] -= 1 #to Time/Date
-        else:
-          if menudepth == 2:
-              if mainmenu[1] == 0: #Time
-                if mainmenu[2] == 0: #Hour
-                  if self.theTime[0] < 12:
-                    self.theTime[0] += 1
-                  else:
-                    theTime[0] = 1
-      
-                elif mainmenu[2] == 1: #Minute
-                  
-      
-                elif mainmenu[2] == 2: #Second
-                  
-      
-              elif mainmenu[1] == 1: #Date
-      
-              elif mainmenu[1] == 2: #Out/In
+    if channel == self.bup:
+      if self.menudepth == 0:
+        if mainmenu[0] > 0:
+          mainmenu[0] -= 1
+      elif self.menudepth == 1:
+        if mainmenu[1] > 0:
+          mainmenu[1] -= 1
+      elif self.menudepth == 2:
+        if mainmenu[0] == 1:
+          #method for setting alarm
+          pass
+        if mainmenu[0] == 2:
+          #method for setting timer
+          pass
+        if mainmenu[0] == 3:
+          if mainmenu[1] == 0:
             
-        break;
-      case self.bdown:
-      
-        break;
-      case self.bleft:
-      
-        break;
-      case self.bright:
-      
-        break;
-      case self.bset:
-      
-        break;
-      case self.bmenu:
-      
-        break;
-      case self.bsnooze1:
-    }
+          if mainmenu[1] == 1:
+
+    if channel == self.bdown:
+      pass
+    if channel == self.bleft:
+      pass
+    if channel == self.bright:
+      pass
+    if channel == self.bset:
+      pass
+    if channel == self.bmenu:
+      pass
+    if channel == self.bsnooze1:
+      pass
       
   def mainHandler(self, theButton, showDisp):
     pass
