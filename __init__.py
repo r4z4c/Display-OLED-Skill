@@ -13,6 +13,10 @@ import TIME
 
 import RPi.GPIO as GPIO
 
+menudepth = 0
+mainmenu = [0, 0, 0]
+submenu = [0, 0, 0, 0, 0]
+
 __author__ = 'usia'
 
 LOGGER = getLogger(__name__)
@@ -29,9 +33,6 @@ class myDisplay:
   bmenu = 24
   bsnooze1 = 5
   bsnooze2 = 6
-  
-  menudepth = 0
-  mainmenu = [0, 0, 0, 0,]
   
   editstate = false
   editdepth = 0
@@ -63,26 +64,42 @@ class myDisplay:
   def ButtonHandler(channel):
     switch(channel) {
       case self.bup:
-        if self.editstate:
-          
-        else:
-          if mainmenu[0] == 0: #Time/Date
+        if not self.editstate:
+          if mainmenu[0] == 1: #Alarm
             if menudepth == 0:
-              mainmenu[0] += 1 #to Config
+              mainmenu[0] -= 1 #to Time/Date
+            elif menudepth == 1:
       
-          elif mainmenu[0] == 1: #Config
+          elif mainmenu[0] == 2: #Timer
+            if menudepth == 0:
+              mainmenu[0] -= 1 #to Alarm
+            elif menudepth == 1:
+      
+          elif mainmenu[0] == 2: #Music
+            if menudepth == 0:
+              mainmenu[0] -= 1 #to Timer
+            elif menudepth == 1:
+      
+          elif mainmenu[0] == 3: #Config
             if menudepth == 0: 
-              mainmenu[0] += 1 #to Musik
+              mainmenu[0] -= 1 #to Music
             elif menudepth == 1: 
-              if mainmenu[1] == 0:
-                mainmenu[1] += 1 #to Date
-              elif mainmenu[1] == 1:
-                mainmenu[1] += 1 #to Out/In
-            elif menudepth == 2:
+              if mainmenu[1] == 1:
+                mainmenu[1] -= 1 #to Time
+              elif mainmenu[1] == 2:
+                mainmenu[1] -= 1 #to Date
+
+          
+          
+          elif mainmenu[0] == 3: #Alarm
+            if menudepth == 0:
+              mainmenu[0] -= 1 #to Time/Date
+        else:
+          if menudepth == 2:
               if mainmenu[1] == 0: #Time
                 if mainmenu[2] == 0: #Hour
-                  if theTime[0] < 12:
-                    theTime[0] += 1
+                  if self.theTime[0] < 12:
+                    self.theTime[0] += 1
                   else:
                     theTime[0] = 1
       
@@ -95,9 +112,6 @@ class myDisplay:
               elif mainmenu[1] == 1: #Date
       
               elif mainmenu[1] == 2: #Out/In
-      
-          elif mainmenu[0] == 2:
-            if 
             
         break;
       case self.bdown:
@@ -119,6 +133,7 @@ class myDisplay:
     }
       
   def mainHandler(self, theButton, showDisp):
+    pass
     
 
 class myThread(threading.Thread):
