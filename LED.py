@@ -28,7 +28,7 @@ class showTime:
     comparesecond = 0
     t = 0
 
-    config = {'state' = None, 'brightness' = None, 'show' = None, 'r' = None, 'g' = None, 'b' = None}
+    config = {'state': None, 'brightness': None, 'show': None, 'r': None, 'g': None, 'b': None}
 
     def __init__(self):
         with open('settings.json', 'r') as json_file:
@@ -40,7 +40,7 @@ class showTime:
             self.config['g'] = int(data['LED']['g'])
             self.config['b'] = int(data['LED']['b'])
 
-    def config_led(config = {'state' = None, 'brightness' = None, 'show' = None, 'r' = None, 'g' = None, 'b' = None}):
+    def config_led(config = {'state': None, 'brightness': None, 'show': None, 'r': None, 'g': None, 'b': None}):
         for c in self.config:
             if config[c] is not None:
                 self.config[c] = config[c]
