@@ -15,8 +15,6 @@ import time, datetime, threading
 
 class showTime:
 
-    config = configparser.ConfigParser()
-
     # Configure the count of pixels:
     PIXEL_COUNT = 24
 
