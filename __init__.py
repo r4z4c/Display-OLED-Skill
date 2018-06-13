@@ -10,40 +10,34 @@ sys.path.append(abspath(dirname(__file__)))
 
 import RPi.GPIO as GPIO
 
-__author__ = 'usia'
+__author__ = 'uffi'
 
 LOGGER = getLogger(__name__)
 
 
 class myThread(threading.Thread):
 
-  count = 10
+    count = 10
 
-  def __init__(self):
-    threading.Thread.__init__(self)
+    def __init__(self):
+        threading.Thread.__init__(self)
 
-  def run(self):
-    while self.count > 0:
-      if self.count%2:
-        GPIO.output(22, GPIO.HIGH)
-      else:
-        GPIO.output(22, GPIO.LOW)
-      time.sleep(2)
-      self.count = self.count-1
+    def run(self):
+        pass
 
 class DisplayOLEDSkill(MycroftSkill):
 
-  def __init__(self):
-    super(DisplayOLEDSkill, self).__init__(name="DisplayOLEDSkill")
+    def __init__(self):
+        super(DisplayOLEDSkill, self).__init__(name="DisplayOLEDSkill")
 
-  @intent_handler(IntentBuilder("ShowOnDisplayIntent").require("ShowOnDisplayKeyword"))
-  def handle_show_on_display_intent(self, message):
-    self.speak_dialog("is.okay")
+    @intent_handler(IntentBuilder("ShowOnDisplayIntent").require("ShowOnDisplayKeyword"))
+    def handle_show_on_display_intent(self, message):
+        self.speak_dialog("is.okay")
 
-  def stop(self):
-    pass
+    def stop(self):
+        pass
 
 def create_skill():
-  #theThread = myThread()
-  #theThread.start()
-  return DisplayOLEDSkill()
+    #theThread = myThread()
+    #theThread.start()
+    return DisplayOLEDSkill()
