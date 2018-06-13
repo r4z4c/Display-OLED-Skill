@@ -28,22 +28,23 @@ class showTime:
     comparesecond = 0
     t = 0
 
-    state = True
-    brightness = 0.1
-    show = 1
-    r = 0
-    g = 0
-    b = 0
+    config = {'state' = None, 'brightness' = None, 'show' = None, 'r' = None, 'g' = None, 'b' = None}
 
     def __init__(self):
         with open('settings.json', 'r') as json_file:
             data = json.load(json_file)
-            self.state = boolean(data['LED']['state'])
-            self.brightness = float(data['LED']['brightness'])
-            self.showtime = char(data['LED']['show'])
-            self.r = int(data['LED']['r'])
-            self.g = int(data['LED']['g'])
-            self.b = int(data['LED']['b'])
+            self.config['state'] = boolean(data['LED']['state'])
+            self.config['brightness'] = float(data['LED']['brightness'])
+            self.config['show'] = char(data['LED']['show'])
+            self.config['r'] = int(data['LED']['r'])
+            self.config['g'] = int(data['LED']['g'])
+            self.config['b'] = int(data['LED']['b'])
+
+    def config_led(config = {'state' = None, 'brightness' = None, 'show' = None, 'r' = None, 'g' = None, 'b' = None}):
+        for c in self.config:
+            if config[c] is not None:
+                self.config[c] = config[c]
+
 
     def set_leds(self, number):
         highnumber = number/10
@@ -109,14 +110,12 @@ class showTime:
             self.pixels.show()
 
             while True:
+                if self.config["state"]:
+                    if self.config['show']:
+                        self.show_date(self.config['r'],self.config['g'], self.config['b'], self.config['brightness'])
 
-
-
-                if(showdate):
-                    self.show_date(r, g, b, brightness)
-
-                if(showtime):
-                    self.show_time(r, g, b, brightness)
+                    if self.config['show']:
+                        self.show_time(self.config['r'],self.config['g'], self.config['b'], self.config['brightness'])
 
         def close(self):
             for i in range(24):
