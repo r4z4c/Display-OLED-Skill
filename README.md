@@ -1,12 +1,12 @@
 ## showondisplay
 show the time on display
 
-## Description 
+## Description
 Display date an my OLED Screen for my alarm
 
-## Examples 
+## Examples
 * "show me the time on display"
 * "start display"
 
-## Credits 
-Usia
+## Credits
+Uffi
