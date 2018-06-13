@@ -17,7 +17,7 @@ LOGGER = getLogger(__name__)
 
 class myThread(threading.Thread):
 
-    count = 10
+    
 
     def __init__(self):
         threading.Thread.__init__(self)
