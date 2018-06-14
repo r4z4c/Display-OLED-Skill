@@ -3,7 +3,9 @@
 import Adafruit_WS2801
 import Adafruit_GPIO.SPI as SPI
 
-import time, datetime, threading
+import time, datetime, threading, json
+
+import RPi.GPIO as GPIO
 
 # Adafruit_WS2801.RGB_to_color(pos * 3, 255 - pos * 3, 0)
 # pixels.count()
@@ -31,12 +33,13 @@ class showTime:
     def __init__(self):
         with open('settings.json', 'r') as json_file:
             data = json.load(json_file)
-            self.config['state'] = boolean(data['LED']['state'])
-            self.config['brightness'] = float(data['LED']['brightness'])
-            self.config['show'] = char(data['LED']['show'])
-            self.config['r'] = int(data['LED']['r'])
-            self.config['g'] = int(data['LED']['g'])
-            self.config['b'] = int(data['LED']['b'])
+            LED = data['LED']
+            self.config['state'] = LED[0]
+            self.config['brightness'] = float(LED['brightness'])
+            self.config['show'] = char(LED['show'])
+            self.config['r'] = int(LED['r'])
+            self.config['g'] = int(LED['g'])
+            self.config['b'] = int(LED['b'])
 
     def config_led(config = {'state': None, 'brightness': None, 'show': None, 'r': None, 'g': None, 'b': None}):
         for c in self.config:
