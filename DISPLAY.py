@@ -6,9 +6,9 @@ from PIL import Image, ImageDraw, ImageFont
 a=u"°" # to display special strings
 
 
-class ShowOnDisplay():
+class myDisplay(threading.Thread):
 
-    disp_on = True
+    state = True
 
     # Raspberry Pi pin configuration:
     RST = 24
@@ -30,11 +30,20 @@ class ShowOnDisplay():
 
     font_default = ImageFont.load_default()
     font = ImageFont.truetype("font/arial.ttf", 12)
-    font_b = ImageFont.truetype("font/arial.ttf", 18)
+    font_b = ImageFont.truetype("font/arial.ttf", 20)
     font_c = ImageFont.truetype("font/arial.ttf", 14)
 
+    config = {'show': None}
+
     def __init__(self):
-        self.name = "ShowOnDisplay"
+        threading.Thread.__init__(self)
+
+        with open('settings.json', 'r') as file:
+            data = json.load(file)
+            DISPLAY = data['DISPLAY']
+            self.config['show'] = LED['show']
+
+        self.name = "myDisplay"
 
         self.disp.begin()
         self.disp.clear()
@@ -45,6 +54,29 @@ class ShowOnDisplay():
         self.draw.text((self.x, self.top+25), 'Initializing...', font=self.font_c, fill=255)
         self.disp.image(self.image)
         self.disp.display()
+
+    def show(self):
+        draw.rectangle((0,0,self.width,self.height), outline=0, fill=0) #clear display
+        displayTime = currentTime("time", "")
+        draw.text((self.x, self.top+10), displayTime, font=self.font_b, fill=255)
+        draw.line((self.x, self.top+32, self.x+self.width, self.top+32), fill=255)
+        displayDate = currentTime("date", "")
+        draw.text((self.x, self.top+34), displayDate, font=font_b, fill=255)
+        disp.image(image)
+        disp.display()
+
+    def run(self):
+        while True:
+            if self.config['show'] == "off":
+                self.disp.clear()
+                self.disp.display()
+                while self.config['show'] == "off":
+                    pass
+
+            elif self.config['show'] == "on":
+                while self.config['show'] == "on":
+                    self.show()
+
 
     def reset(self):
         self.disp.clear()

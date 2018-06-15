@@ -19,11 +19,14 @@ LOGGER = getLogger(__name__)
 class DisplayOLEDSkill(MycroftSkill):
 
     myLEDs = None
+    myDisplay = None
 
     def __init__(self):
         super(DisplayOLEDSkill, self).__init__(name="DisplayOLEDSkill")
-        self.myLEDs = theLEDs()
+        self.myLEDs = LED.theLEDs()
+        self.myDisplay = DISPLAY.theDisplay()
         self.myLEDs.start()
+        self.myDisplay.start()
 
     @intent_handler(IntentBuilder("TurnAllOffIntent").require("TurnAllOffKeyword"))
     def handle_turn_all_off_intent(self, message):

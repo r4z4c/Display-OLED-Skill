@@ -109,18 +109,20 @@ class theLEDs(threading.Thread):
 
         while True:
             while self.config['status']:
-                if self.config['show'] == 'time':
-                    while self.config['show'] == 'time':
+                if self.config['show'] == "time":
+                    while self.config['show'] == "time":
                         self.show('time', self.config['r'],self.config['g'], self.config['b'], self.config['brightness'])
 
-                if self.config['show'] == 'date':
-                    while self.config['show'] == 'date':
+                elif self.config['show'] == "date":
+                    while self.config['show'] == "date":
                         self.show('date', self.config['r'],self.config['g'], self.config['b'], self.config['brightness'])
 
-                if self.config['show'] == 'light':
-                    while self.config['show'] == 'light':
-                        self.light()
+                elif self.config['show'] == "light":
+                    self.light()
+                    while self.config['show'] == "light":
+                        pass
 
-                if self.config['show'] == 'off':
-                    while self.config['show'] == 'off':
-                        self.off()
+                elif self.config['show'] == "off":
+                    self.off()
+                    while self.config['show'] == "off":
+                        pass
