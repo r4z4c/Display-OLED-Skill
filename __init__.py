@@ -8,27 +8,20 @@ from os.path import dirname, abspath
 
 sys.path.append(abspath(dirname(__file__)))
 
+import LED, DISPLAY
+
 import RPi.GPIO as GPIO
 
 __author__ = 'uffi'
 
 LOGGER = getLogger(__name__)
 
-
-class myThread(threading.Thread):
-
-    
-
-    def __init__(self):
-        threading.Thread.__init__(self)
-
-    def run(self):
-        pass
-
 class DisplayOLEDSkill(MycroftSkill):
 
     def __init__(self):
         super(DisplayOLEDSkill, self).__init__(name="DisplayOLEDSkill")
+        myLEDs = theLEDs()
+        myLEDs.start()
 
     @intent_handler(IntentBuilder("ShowOnDisplayIntent").require("ShowOnDisplayKeyword"))
     def handle_show_on_display_intent(self, message):
@@ -38,6 +31,4 @@ class DisplayOLEDSkill(MycroftSkill):
         pass
 
 def create_skill():
-    #theThread = myThread()
-    #theThread.start()
     return DisplayOLEDSkill()

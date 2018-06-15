@@ -14,10 +14,12 @@ import time, datetime, threading, json
 # pixels.get_pixel_rgb(i)
 # reversed(range(i, pixels.count()))
 
-class showTime:
+class theLEDs(threading.Thread):
 
     # Configure the count of pixels:
     PIXEL_COUNT = 24
+
+    runvar = True
 
     # Alternatively specify a hardware SPI connection on /dev/spidev0.0:
     SPI_PORT   = 0
@@ -47,6 +49,9 @@ class showTime:
             if config[c] is not None:
                 self.config[c] = config[c]
 
+        with open('settings.json', 'w') as file:
+            json.dump(self.config, file)
+
 
     def set_leds(self, number):
         highnumber = number/10
@@ -69,30 +74,18 @@ class showTime:
     def show(self, type, r, g, b, brightness):
         nowdata = [None, None, None]
         if type == 't':
-#            self.comparesecond
-#            currentsecond = datetime.datetime.now().second
-#            print currentsecond
-#            while(currentsecond == self.comparesecond):
-#                currentsecond = datetime.datetime.now().second
-
-#            comparesecond = datetime.datetime.now().second
-
             now = datetime.datetime.now()
-
             nowdata = [now.second, now.minute, now.hour]
 
         elif type == 'd':
             now = datetime.datetime.now()
-
             nowdata = [now.year, now.month, now.day]
 
         else:
             return 0
 
         for k in range(len(nowdata)):
-
             leds = self.set_leds(nowdata[k])
-
             for i in range(len(leds)):
                 for j in range(len(leds[i])):
                     if leds[i][j] == 1:
@@ -107,11 +100,12 @@ class showTime:
         self.pixels.show()
 
         while True:
-            if self.config['show'] == 't':
-                self.show('t', self.config['r'],self.config['g'], self.config['b'], self.config['brightness'])
+            while self.runvar:
+                if self.config['show'] == 't':
+                    self.show('t', self.config['r'],self.config['g'], self.config['b'], self.config['brightness'])
 
-            if self.config['show'] == 'd':
-                self.show('d', self.config['r'],self.config['g'], self.config['b'], self.config['brightness'])
+                if self.config['show'] == 'd':
+                    self.show('d', self.config['r'],self.config['g'], self.config['b'], self.config['brightness'])
 
     def close(self):
         for i in range(self.PIXEL_COUNT):
