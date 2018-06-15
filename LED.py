@@ -76,11 +76,11 @@ class theLEDs(threading.Thread):
 
     def show(self, type, r, g, b, brightness):
         nowdata = [None, None, None]
-        if type == 't':
+        if type == 'time':
             now = datetime.datetime.now()
             nowdata = [now.second, now.minute, now.hour]
 
-        elif type == 'd':
+        elif type == 'date':
             now = datetime.datetime.now()
             nowdata = [now.year, now.month, now.day]
 
@@ -112,13 +112,13 @@ class theLEDs(threading.Thread):
 
         while True:
             while self.config['status']:
-                if self.config['show'] == 't':
-                    while self.config['show'] == 't':
-                        self.show('t', self.config['r'],self.config['g'], self.config['b'], self.config['brightness'])
+                if self.config['show'] == 'time':
+                    while self.config['show'] == 'time':
+                        self.show('time', self.config['r'],self.config['g'], self.config['b'], self.config['brightness'])
 
-                if self.config['show'] == 'd':
-                    while self.config['show'] == 'd':
-                        self.show('d', self.config['r'],self.config['g'], self.config['b'], self.config['brightness'])
+                if self.config['show'] == 'date':
+                    while self.config['show'] == 'date':
+                        self.show('date', self.config['r'],self.config['g'], self.config['b'], self.config['brightness'])
 
                 if self.config['show'] == 'light':
                     while self.config['show'] == 'light':
