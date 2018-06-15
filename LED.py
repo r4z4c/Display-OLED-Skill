@@ -1,11 +1,10 @@
-
 # Import the WS2801 module.
 import Adafruit_WS2801
 import Adafruit_GPIO.SPI as SPI
 
-import time, datetime, threading, json
-
 import RPi.GPIO as GPIO
+
+import time, datetime, threading, json
 
 # Adafruit_WS2801.RGB_to_color(pos * 3, 255 - pos * 3, 0)
 # pixels.count()
@@ -28,20 +27,22 @@ class showTime:
     comparesecond = 0
     t = 0
 
+    nowdata = [1, 2, 3]
+
     config = {'state': None, 'brightness': None, 'show': None, 'r': None, 'g': None, 'b': None}
 
     def __init__(self):
-        with open('settings.json', 'r') as json_file:
-            data = json.load(json_file)
-            LED = data['LED']
-            self.config['state'] = LED[0]
+        with open('settings.json', 'r') as file:
+            data = json.load(file)
+            LED = data['LED'][0]
+            self.config['state'] = LED['state']
             self.config['brightness'] = float(LED['brightness'])
-            self.config['show'] = char(LED['show'])
+            self.config['show'] = LED['show']
             self.config['r'] = int(LED['r'])
             self.config['g'] = int(LED['g'])
             self.config['b'] = int(LED['b'])
 
-    def config_led(config = {'state': None, 'brightness': None, 'show': None, 'r': None, 'g': None, 'b': None}):
+    def config_led(self, config = {'state': None, 'brightness': None, 'show': None, 'r': None, 'g': None, 'b': None}):
         for c in self.config:
             if config[c] is not None:
                 self.config[c] = config[c]
@@ -53,72 +54,66 @@ class showTime:
 
         leds = [[0, 0, 0, 0],[0, 0, 0, 0]]
 
-        leds[0][0] = highnumber/8
-        leds[0][1] = highnumber%8/4
-        leds[0][2] = highnumber%8%4/2
-        leds[0][3] = highnumber%8%4%2/1
+        leds[0][3] = lownumber/8
+        leds[0][2] = lownumber%8/4
+        leds[0][1] = lownumber%8%4/2
+        leds[0][0] = lownumber%8%4%2/1
 
-        leds[1][3] = lownumber/8
-        leds[1][2] = lownumber%8/4
-        leds[1][1] = lownumber%8%4/2
-        leds[1][0] = lownumber%8%4%2/1
+        leds[1][0] = highnumber/8
+        leds[1][1] = highnumber%8/4
+        leds[1][2] = highnumber%8%4/2
+        leds[1][3] = highnumber%8%4%2/1
 
         return leds
 
-    def show_time(self, r, g, b, brightness):
-        self.comparesecond
-        currentsecond = datetime.datetime.now().second
-        while(currentsecond == self.comparesecond):
-            currentsecond = datetime.datetime.now().second
+    def show(self, type, r, g, b, brightness):
+        nowdata = [None, None, None]
+        if type == 't':
+#            self.comparesecond
+#            currentsecond = datetime.datetime.now().second
+#            print currentsecond
+#            while(currentsecond == self.comparesecond):
+#                currentsecond = datetime.datetime.now().second
 
-        comparesecond = datetime.datetime.now().second
+#            comparesecond = datetime.datetime.now().second
 
-        now = datetime.datetime.now()
+            now = datetime.datetime.now()
 
-        nowtime = {now.hour, now.minute, now.second}
+            nowdata = [now.second, now.minute, now.hour]
 
-        for k in nowtime:
-            leds = self.set_leds(k)
+        elif type == 'd':
+            now = datetime.datetime.now()
+
+            nowdata = [now.year, now.month, now.day]
+
+        else:
+            return 0
+
+        for k in range(len(nowdata)):
+
+            leds = self.set_leds(nowdata[k])
 
             for i in range(len(leds)):
                 for j in range(len(leds[i])):
                     if leds[i][j] == 1:
-                        self.pixels.set_pixel(j+(k*i*4), Adafruit_WS2801.RGB_to_color(int(r*brightness), int(g*brightness), int(b*brightness)))
+                        self.pixels.set_pixel(j+(k*8)+i*4, Adafruit_WS2801.RGB_to_color(int(r*brightness), int(g*brightness), int(b*brightness)))
                     else:
-                        self.pixels.set_pixel(j+(k*i*4), Adafruit_WS2801.RGB_to_color(0, 0, 0))
+                        self.pixels.set_pixel(j+(k*8)+i*4, Adafruit_WS2801.RGB_to_color(0, 0, 0))
 
         self.pixels.show()
 
-        def show_date(self, r, g, b, brightness):
-            now = datetime.datetime.now()
+    def run(self):
+        self.pixels.clear()
+        self.pixels.show()
 
-            nowdate = {now.year, now.month, now.day}
+        while True:
+            if self.config['show'] == 't':
+                self.show('t', self.config['r'],self.config['g'], self.config['b'], self.config['brightness'])
 
-            for k in nowtime:
-                leds = self.set_leds(k)
+            if self.config['show'] == 'd':
+                self.show('d', self.config['r'],self.config['g'], self.config['b'], self.config['brightness'])
 
-                for i in range(len(leds)):
-                    for j in range(len(leds[i])):
-                        if leds[i][j] == 1:
-                            self.pixels.set_pixel(j+(k*i*4), Adafruit_WS2801.RGB_to_color(int(r*brightness), int(g*brightness), int(b*brightness)))
-                        else:
-                            self.pixels.set_pixel(j+(k*i*4), Adafruit_WS2801.RGB_to_color(0, 0, 0))
-
-            self.pixels.show()
-
-        def run(self):
-            self.pixels.clear()
-            self.pixels.show()
-
-            while True:
-                if self.config["state"]:
-                    if self.config['show']:
-                        self.show_date(self.config['r'],self.config['g'], self.config['b'], self.config['brightness'])
-
-                    if self.config['show']:
-                        self.show_time(self.config['r'],self.config['g'], self.config['b'], self.config['brightness'])
-
-        def close(self):
-            for i in range(24):
-                self.pixels.set_pixel(i, Adafruit_WS2801.RGB_to_color(0, 0, 0))
-            self.pixels.show()
+    def close(self):
+        for i in range(self.PIXEL_COUNT):
+            self.pixels.set_pixel(i, Adafruit_WS2801.RGB_to_color(0, 0, 0))
+        self.pixels.show()
