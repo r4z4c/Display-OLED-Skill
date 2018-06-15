@@ -53,9 +53,6 @@ class theLEDs(threading.Thread):
         with open('settings.json', 'w') as file:
             json.dump(self.config, file)
 
-    def hi(self):
-        print("hi")
-
     def set_leds(self, number):
         highnumber = number/10
         lownumber = number%10

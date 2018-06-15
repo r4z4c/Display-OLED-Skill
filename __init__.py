@@ -50,7 +50,7 @@ class DisplayOLEDSkill(MycroftSkill):
     @intent_handler(IntentBuilder("ShowTimeIntent").require("ShowTimeKeyword"))
     def handle_show_time_intent(self, message):
         self.myLEDs.config['show'] = 'time'
-        
+
     def stop(self):
         pass
 
