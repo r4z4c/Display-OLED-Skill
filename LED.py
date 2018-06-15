@@ -34,6 +34,7 @@ class theLEDs(threading.Thread):
     config = {'state': None, 'brightness': None, 'show': None, 'r': None, 'g': None, 'b': None}
 
     def __init__(self):
+        threading.Thread.__init__(self)
         with open('settings.json', 'r') as file:
             data = json.load(file)
             LED = data['LED'][0]
@@ -52,6 +53,8 @@ class theLEDs(threading.Thread):
         with open('settings.json', 'w') as file:
             json.dump(self.config, file)
 
+    def hi(self):
+        print("hi")
 
     def set_leds(self, number):
         highnumber = number/10
@@ -95,19 +98,36 @@ class theLEDs(threading.Thread):
 
         self.pixels.show()
 
+    def light(self):
+        for i in range(self.PIXEL_COUNT):
+            self.pixels.set_pixel(i, Adafruit_WS2801.RGB_to_color(150, 150, 150))
+        self.pixels.show()
+    def off(self):
+        self.pixels.clear()
+        self.pixels.show()
+
+    def run(self):
+        self.pixels.clear()
+        self.pixels.show()
+
     def run(self):
         self.pixels.clear()
         self.pixels.show()
 
         while True:
-            while self.runvar:
+            while self.config['status']:
                 if self.config['show'] == 't':
-                    self.show('t', self.config['r'],self.config['g'], self.config['b'], self.config['brightness'])
+                    while self.config['show'] == 't':
+                        self.show('t', self.config['r'],self.config['g'], self.config['b'], self.config['brightness'])
 
                 if self.config['show'] == 'd':
-                    self.show('d', self.config['r'],self.config['g'], self.config['b'], self.config['brightness'])
+                    while self.config['show'] == 'd':
+                        self.show('d', self.config['r'],self.config['g'], self.config['b'], self.config['brightness'])
 
-    def close(self):
-        for i in range(self.PIXEL_COUNT):
-            self.pixels.set_pixel(i, Adafruit_WS2801.RGB_to_color(0, 0, 0))
-        self.pixels.show()
+                if self.config['show'] == 'light':
+                    while self.config['show'] == 'light':
+                        self.light()
+
+                if self.config['show'] == 'off':
+                    while self.config['show'] == 'off':
+                        self.off()
