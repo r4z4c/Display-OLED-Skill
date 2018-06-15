@@ -110,10 +110,6 @@ class theLEDs(threading.Thread):
         self.pixels.clear()
         self.pixels.show()
 
-    def run(self):
-        self.pixels.clear()
-        self.pixels.show()
-
         while True:
             while self.config['status']:
                 if self.config['show'] == 't':
