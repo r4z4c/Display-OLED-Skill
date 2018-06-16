@@ -100,9 +100,9 @@ class theLEDs(threading.Thread):
 
         self.pixels.show()
 
-    def light(self):
+    def lighton(self):
         for i in range(self.PIXEL_COUNT):
-            self.pixels.set_pixel(i, Adafruit_WS2801.RGB_to_color(150, 150, 150))
+            self.pixels.set_pixel(i, Adafruit_WS2801.RGB_to_color(255, 255, 255))
         self.pixels.show()
 
     def off(self):
@@ -126,8 +126,9 @@ class theLEDs(threading.Thread):
                         time.sleep(0.1)
 
                 elif self.config['show'] == "light":
+                    self.lighton()
+                    time.sleep(0.2)
                     while self.config['show'] == "light":
-                        self.light()
                         time.sleep(0.1)
 
                 elif self.config['show'] == "off":
