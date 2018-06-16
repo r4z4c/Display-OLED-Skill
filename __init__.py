@@ -8,7 +8,7 @@ from os.path import dirname, abspath
 
 sys.path.append(abspath(dirname(__file__)))
 
-import LED#, DISPLAY
+#import LED, DISPLAY
 
 import RPi.GPIO as GPIO
 
@@ -23,9 +23,9 @@ class DisplayOLEDSkill(MycroftSkill):
 
     def __init__(self, theLEDs):
         super(DisplayOLEDSkill, self).__init__(name="DisplayOLEDSkill")
-        self.myLEDs = theLEDs
+        #self.myLEDs = theLEDs
         #self.myDisplay = DISPLAY.theDisplay()
-        self.myLEDs.start()
+        #self.myLEDs.start()
         #self.myDisplay.start()
 
     @intent_handler(IntentBuilder("TurnAllOffIntent").require("TurnAllOffKeyword"))
@@ -41,23 +41,27 @@ class DisplayOLEDSkill(MycroftSkill):
 
     @intent_handler(IntentBuilder("TurnLightOnIntent").require("TurnLightOnKeyword"))
     def handle_turn_light_on_intent(self, message):
-        self.myLEDs.config['show'] = 'on'
+        #self.myLEDs.config['show'] = 'on'
+        pass
 
     @intent_handler(IntentBuilder("TurnLEDsOffIntent").require("TurnLEDsOFFKeyword"))
     def handle_turn_leds_off_intent(self, message):
-        self.myLEDs.config['show'] = 'off'
+        #self.myLEDs.config['show'] = 'off'
+        pass
 
     @intent_handler(IntentBuilder("ShowDateIntent").require("ShowDateKeyword"))
     def handle_Show_date_intent(self, message):
-        self.myLEDs.config['show'] = 'date'
+        #self.myLEDs.config['show'] = 'date'
+        pass
 
     @intent_handler(IntentBuilder("ShowTimeIntent").require("ShowTimeKeyword"))
     def handle_show_time_intent(self, message):
-        self.myLEDs.config['show'] = 'time'
+        #self.myLEDs.config['show'] = 'time'
+        pass
 
     def stop(self):
         pass
 
 def create_skill():
-    myLEDs = LED.theLEDs()
-    return DisplayOLEDSkill(myLEDs)
+    #myLEDs = LED.theLEDs()
+    return DisplayOLEDSkill()
