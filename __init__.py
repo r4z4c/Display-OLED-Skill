@@ -30,14 +30,16 @@ class DisplayOLEDSkill(MycroftSkill):
 
     @intent_handler(IntentBuilder("AllOffIntent").require("AllOffKeyword"))
     def handle_turn_all_off_intent(self, message):
-        pass
+        self.myDisplay.config['show'] = 'off'
+        self.myLEDs.config['show'] = 'off'
 
     @intent_handler(IntentBuilder("TurnDisplayOnIntent").require("TurnDisplayOn"))
     def handle_turn_display_on_intent(self, message):
-        pass
+        self.myDisplay.config['show'] = 'on'
+
     @intent_handler(IntentBuilder("TurnDisplayOffIntent").require("TurnDisplayOff"))
     def handle_turn_display_off_intent(self, message):
-        pass
+        self.myDisplay.config['show'] = 'off'
 
     @intent_handler(IntentBuilder("TurnLightOnIntent").require("TurnLightOn"))
     def handle_turn_light_on_intent(self, message):
