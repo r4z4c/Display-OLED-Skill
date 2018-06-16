@@ -7,12 +7,15 @@ from os.path import dirname, abspath
 
 sys.path.append(abspath(dirname(__file__)))
 
-a=u"°" # to display special strings
+import TIME
 
+a=u"°" # to display special strings
 
 class theDisplay(threading.Thread):
 
     state = True
+
+    myTime = None
 
     # Raspberry Pi pin configuration:
     RST = 24
@@ -43,6 +46,7 @@ class theDisplay(threading.Thread):
 
     def __init__(self):
         threading.Thread.__init__(self)
+        self.myTime = TIME.theTime()
 
         with open(self.json_file, 'r') as file:
             data = json.load(file)
@@ -63,10 +67,10 @@ class theDisplay(threading.Thread):
 
     def show(self):
         draw.rectangle((0,0,self.width,self.height), outline=0, fill=0) #clear display
-        displayTime = currentTime("time", "")
+        displayTime = self.myTime.textTime()
         draw.text((self.x, self.top+10), displayTime, font=self.font_b, fill=255)
         draw.line((self.x, self.top+32, self.x+self.width, self.top+32), fill=255)
-        displayDate = currentTime("date", "")
+        displayDate = self.myTime.textDate()
         draw.text((self.x, self.top+34), displayDate, font=font_b, fill=255)
         disp.image(image)
         disp.display()
