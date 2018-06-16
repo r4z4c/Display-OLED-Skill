@@ -71,7 +71,7 @@ class theDisplay(threading.Thread):
         self.draw.text((self.x, self.top+10), displayTime, font=self.font_b, fill=255)
         self.draw.line((self.x, self.top+32, self.x+self.width, self.top+32), fill=255)
         displayDate = self.myTime.textDate()
-        self.draw.text((self.x, self.top+34), displayDate, font=font_b, fill=255)
+        self.draw.text((self.x, self.top+34), displayDate, font=self.font_b, fill=255)
         self.disp.image(image)
         self.disp.display()
 
