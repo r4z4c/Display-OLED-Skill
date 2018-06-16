@@ -8,7 +8,7 @@ from os.path import dirname, abspath
 
 sys.path.append(abspath(dirname(__file__)))
 
-import LED#, DISPLAY
+import LED, DISPLAY
 
 import RPi.GPIO as GPIO
 
@@ -24,9 +24,9 @@ class DisplayOLEDSkill(MycroftSkill):
     def __init__(self):
         super(DisplayOLEDSkill, self).__init__(name="DisplayOLEDSkill")
         self.myLEDs = LED.theLEDs()
-        #self.myDisplay = DISPLAY.theDisplay()
+        self.myDisplay = DISPLAY.theDisplay()
         self.myLEDs.start()
-        #self.myDisplay.start()
+        self.myDisplay.start()
 
     @intent_handler(IntentBuilder("AllOffIntent").require("AllOffKeyword"))
     def handle_turn_all_off_intent(self, message):
