@@ -77,10 +77,10 @@ class theDisplay(threading.Thread):
                 while self.config['show'] == "on":
                     self.draw.rectangle((0,0,self.width,self.height), outline=0, fill=0) #clear display
                     displayTime = self.myTime.textTime()
-                    self.draw.text((self.x+15, self.top+10), displayTime, font=self.font_b, fill=255)
+                    self.draw.text((self.x+37, self.top+10), displayTime, font=self.font_b, fill=255)
                     self.draw.line((self.x, self.top+32, self.x+self.width, self.top+32), fill=255)
                     displayDate = self.myTime.textDate()
-                    self.draw.text((self.x+5, self.top+34), displayDate, font=self.font_b, fill=255)
+                    self.draw.text((self.x+12, self.top+34), displayDate, font=self.font_b, fill=255)
                     self.disp.image(self.image)
                     self.disp.display()
                     time.sleep(0.05)
