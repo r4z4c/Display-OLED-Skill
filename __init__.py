@@ -28,40 +28,36 @@ class DisplayOLEDSkill(MycroftSkill):
         #self.myLEDs.start()
         #self.myDisplay.start()
 
-    '''
     @intent_handler(IntentBuilder("AllOffIntent").require("AllOffKeyword"))
     def handle_turn_all_off_intent(self, message):
         pass
 
-    @intent_handler(IntentBuilder("TurnDisplayOnIntent").require("TurnDisplayOnKeyword"))
+    @intent_handler(IntentBuilder("TurnDisplayOnIntent").require("TurnDisplayOn"))
     def handle_turn_display_on_intent(self, message):
         pass
-    @intent_handler(IntentBuilder("TurnDisplayOffIntent").require("TurnDisplayOffKeyword"))
+    @intent_handler(IntentBuilder("TurnDisplayOffIntent").require("TurnDisplayOff"))
     def handle_turn_display_off_intent(self, message):
         pass
-    '''
 
-    @intent_handler(IntentBuilder("TurnLightOnIntent").require("TurnLightOnKeyword"))
+    @intent_handler(IntentBuilder("TurnLightOnIntent").require("TurnLightOn"))
     def handle_turn_light_on_intent(self, message):
         #self.myLEDs.config['show'] = 'on'
         pass
 
-    @intent_handler(IntentBuilder("TurnLEDsOffIntent").require("TurnLEDsOffKeyword"))
+    @intent_handler(IntentBuilder("TurnLEDsOffIntent").require("TurnLEDsOff"))
     def handle_turn_leds_off_intent(self, message):
         #self.myLEDs.config['show'] = 'off'
         pass
 
-    '''
-    @intent_handler(IntentBuilder("ShowDateIntent").require("ShowDateKeyword"))
+    @intent_handler(IntentBuilder("ShowDateIntent").require("ShowDate"))
     def handle_Show_date_intent(self, message):
         #self.myLEDs.config['show'] = 'date'
         pass
 
-    @intent_handler(IntentBuilder("ShowTimeIntent").require("ShowTimeKeyword"))
+    @intent_handler(IntentBuilder("ShowTimeIntent").require("ShowTime"))
     def handle_show_time_intent(self, message):
         #self.myLEDs.config['show'] = 'time'
         pass
-    '''
 
     def stop(self):
         pass
