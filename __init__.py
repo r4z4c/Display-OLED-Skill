@@ -28,6 +28,7 @@ class DisplayOLEDSkill(MycroftSkill):
         #self.myLEDs.start()
         #self.myDisplay.start()
 
+    '''
     @intent_handler(IntentBuilder("AllOffIntent").require("AllOffKeyword"))
     def handle_turn_all_off_intent(self, message):
         pass
@@ -53,6 +54,7 @@ class DisplayOLEDSkill(MycroftSkill):
     def handle_Show_date_intent(self, message):
         #self.myLEDs.config['show'] = 'date'
         pass
+    '''
 
     @intent_handler(IntentBuilder("ShowTimeIntent").require("ShowTimeKeyword"))
     def handle_show_time_intent(self, message):
