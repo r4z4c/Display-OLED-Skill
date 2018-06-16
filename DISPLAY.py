@@ -83,7 +83,7 @@ class theDisplay(threading.Thread):
                     self.draw.text((self.x+12, self.top+34), displayDate, font=self.font_b, fill=255)
                     self.disp.image(self.image)
                     self.disp.display()
-                    time.sleep(0.05)
+                    time.sleep(0.1)
 
 
 
