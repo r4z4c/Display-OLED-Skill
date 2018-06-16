@@ -64,15 +64,15 @@ class theLEDs(threading.Thread):
 
         leds = [[0, 0, 0, 0],[0, 0, 0, 0]]
 
-        leds[0][3] = lownumber/8
-        leds[0][2] = lownumber%8/4
-        leds[0][1] = lownumber%8%4/2
-        leds[0][0] = lownumber%8%4%2/1
+        leds[0][3] = int(lownumber/8)
+        leds[0][2] = int(lownumber%8/4)
+        leds[0][1] = int(lownumber%8%4/2)
+        leds[0][0] = int(lownumber%8%4%2/1)
 
-        leds[1][0] = highnumber/8
-        leds[1][1] = highnumber%8/4
-        leds[1][2] = highnumber%8%4/2
-        leds[1][3] = highnumber%8%4%2/1
+        leds[1][0] = int(highnumber/8)
+        leds[1][1] = int(highnumber%8/4)
+        leds[1][2] = int(highnumber%8%4/2)
+        leds[1][3] = int(highnumber%8%4%2/1)
 
         return leds
 
