@@ -37,7 +37,7 @@ class theLEDs(threading.Thread):
         threading.Thread.__init__(self)
         with open('settings.json', 'r') as file:
             data = json.load(file)
-            LED = data['LED'][0]
+            LED = data['LED']
             self.config['state'] = LED['state']
             self.config['brightness'] = float(LED['brightness'])
             self.config['show'] = LED['show']
