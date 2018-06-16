@@ -36,9 +36,11 @@ class theLEDs(threading.Thread):
 
     config = {'status': None, 'brightness': None, 'show': None, 'r': None, 'g': None, 'b': None}
 
+    json_file = "/opt/mycroft/skills/skill-Display-OLED/settings.json"
+
     def __init__(self):
         threading.Thread.__init__(self)
-        with open('settings.json', 'r') as file:
+        with open(self.json_file, 'r') as file:
             data = json.load(file)
             LED = data['LED']
             self.config['status'] = LED['status']
@@ -53,7 +55,7 @@ class theLEDs(threading.Thread):
             if config[c] is not None:
                 self.config[c] = config[c]
 
-        with open('settings.json', 'w') as file:
+        with open(self.json_file, 'w') as file:
             json.dump(self.config, file)
 
     def set_leds(self, number):

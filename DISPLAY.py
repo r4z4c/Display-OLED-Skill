@@ -39,10 +39,12 @@ class theDisplay(threading.Thread):
 
     config = {'show': None}
 
+    json_file = "/opt/mycroft/skills/skill-Display-OLED/settings.json"
+
     def __init__(self):
         threading.Thread.__init__(self)
 
-        with open('settings.json', 'r') as file:
+        with open(self.json_file, 'r') as file:
             data = json.load(file)
             DISPLAY = data['DISPLAY']
             self.config['show'] = DISPLAY['show']
