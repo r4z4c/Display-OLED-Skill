@@ -42,7 +42,7 @@ class theDisplay(threading.Thread):
         with open('settings.json', 'r') as file:
             data = json.load(file)
             DISPLAY = data['DISPLAY']
-            self.config['show'] = LED['show']
+            self.config['show'] = DISPLAY['show']
 
         self.name = "myDisplay"
 
