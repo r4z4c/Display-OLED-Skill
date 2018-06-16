@@ -2,7 +2,9 @@
 
 import Adafruit_SSD1306
 from PIL import Image, ImageDraw, ImageFont
-import threading, json
+import threading, json, sys
+
+sys.path.append(abspath(dirname(__file__)))
 
 a=u"°" # to display special strings
 
