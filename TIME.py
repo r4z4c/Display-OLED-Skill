@@ -12,7 +12,7 @@ class theTime:
         nowminute = now.minute
         nowsecond = now.second
 
-        nowTime = str(nowhour).zfill(2) + ":" + str(nowminute).zfill(2) + ":" + str(nowsecond).zfill(2)
+        nowTime = str(nowhour).zfill(2) + ":" + str(nowminute).zfill(2)
 
         return nowTime
 
