@@ -2,6 +2,7 @@
 
 import Adafruit_SSD1306
 from PIL import Image, ImageDraw, ImageFont
+import threading
 
 a=u"°" # to display special strings
 
