@@ -21,7 +21,7 @@ class DisplayOLEDSkill(MycroftSkill):
     myLEDs = None
     myDisplay = None
 
-    def __init__(self, theLEDs):
+    def __init__(self):
         super(DisplayOLEDSkill, self).__init__(name="DisplayOLEDSkill")
         #self.myLEDs = theLEDs
         #self.myDisplay = DISPLAY.theDisplay()
