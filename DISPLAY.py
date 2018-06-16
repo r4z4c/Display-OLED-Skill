@@ -65,16 +65,6 @@ class theDisplay(threading.Thread):
         self.disp.image(self.image)
         self.disp.display()
 
-    def show(self):
-        self.draw.rectangle((0,0,self.width,self.height), outline=0, fill=0) #clear display
-        displayTime = self.myTime.textTime()
-        self.draw.text((self.x, self.top+10), displayTime, font=self.font_b, fill=255)
-        self.draw.line((self.x, self.top+32, self.x+self.width, self.top+32), fill=255)
-        displayDate = self.myTime.textDate()
-        self.draw.text((self.x, self.top+34), displayDate, font=self.font_b, fill=255)
-        self.disp.image(image)
-        self.disp.display()
-
     def run(self):
         while True:
             if self.config['show'] == "off":
@@ -85,7 +75,15 @@ class theDisplay(threading.Thread):
 
             elif self.config['show'] == "on":
                 while self.config['show'] == "on":
-                    self.show()
+                    self.draw.rectangle((0,0,self.width,self.height), outline=0, fill=0) #clear display
+                    displayTime = self.myTime.textTime()
+                    self.draw.text((self.x, self.top+10), displayTime, font=self.font_b, fill=255)
+                    self.draw.line((self.x, self.top+32, self.x+self.width, self.top+32), fill=255)
+                    displayDate = self.myTime.textDate()
+                    self.draw.text((self.x, self.top+34), displayDate, font=self.font_b, fill=255)
+                    self.disp.image(self.image)
+                    self.disp.display()
+
 
 
     def reset(self):
