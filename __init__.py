@@ -23,9 +23,9 @@ class DisplayOLEDSkill(MycroftSkill):
 
     def __init__(self):
         super(DisplayOLEDSkill, self).__init__(name="DisplayOLEDSkill")
-        #self.myLEDs = theLEDs
+        self.myLEDs = theLEDs()
         #self.myDisplay = DISPLAY.theDisplay()
-        #self.myLEDs.start()
+        self.myLEDs.start()
         #self.myDisplay.start()
 
     @intent_handler(IntentBuilder("AllOffIntent").require("AllOffKeyword"))
@@ -41,27 +41,24 @@ class DisplayOLEDSkill(MycroftSkill):
 
     @intent_handler(IntentBuilder("TurnLightOnIntent").require("TurnLightOn"))
     def handle_turn_light_on_intent(self, message):
-        #self.myLEDs.config['show'] = 'on'
-        pass
+        self.myLEDs.config['show'] = 'on'
 
     @intent_handler(IntentBuilder("TurnLEDsOffIntent").require("TurnLEDsOff"))
     def handle_turn_leds_off_intent(self, message):
-        #self.myLEDs.config['show'] = 'off'
-        pass
+        self.myLEDs.config['show'] = 'off'
 
     @intent_handler(IntentBuilder("ShowDateIntent").require("ShowDate"))
     def handle_Show_date_intent(self, message):
-        #self.myLEDs.config['show'] = 'date'
-        pass
+        self.myLEDs.config['show'] = 'date'
+
 
     @intent_handler(IntentBuilder("ShowTimeIntent").require("ShowTime"))
     def handle_show_time_intent(self, message):
-        #self.myLEDs.config['show'] = 'time'
-        pass
+        self.myLEDs.config['show'] = 'time'
+
 
     def stop(self):
         pass
 
 def create_skill():
-    #myLEDs = LED.theLEDs()
     return DisplayOLEDSkill()
