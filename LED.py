@@ -31,21 +31,21 @@ class theLEDs(threading.Thread):
 
     nowdata = [1, 2, 3]
 
-    config = {'state': None, 'brightness': None, 'show': None, 'r': None, 'g': None, 'b': None}
+    config = {'status': None, 'brightness': None, 'show': None, 'r': None, 'g': None, 'b': None}
 
     def __init__(self):
         threading.Thread.__init__(self)
         with open('settings.json', 'r') as file:
             data = json.load(file)
             LED = data['LED']
-            self.config['state'] = LED['state']
+            self.config['status'] = LED['status']
             self.config['brightness'] = float(LED['brightness'])
             self.config['show'] = LED['show']
             self.config['r'] = int(LED['r'])
             self.config['g'] = int(LED['g'])
             self.config['b'] = int(LED['b'])
 
-    def config_led(self, config = {'state': None, 'brightness': None, 'show': None, 'r': None, 'g': None, 'b': None}):
+    def config_led(self, config = {'status': None, 'brightness': None, 'show': None, 'r': None, 'g': None, 'b': None}):
         for c in self.config:
             if config[c] is not None:
                 self.config[c] = config[c]
