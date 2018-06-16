@@ -7,7 +7,7 @@ import threading
 a=u"°" # to display special strings
 
 
-class myDisplay(threading.Thread):
+class theDisplay(threading.Thread):
 
     state = True
 
