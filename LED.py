@@ -96,7 +96,7 @@ class theLEDs(threading.Thread):
                     if leds[i][j] == 1:
                         self.pixels.set_pixel(j+(k*8)+i*4, Adafruit_WS2801.RGB_to_color(int(r*brightness), int(g*brightness), int(b*brightness)))
                     else:
-                        self.pixels.clear()
+                        self.pixels.set_pixel(j+(k*8)+i*4, Adafruit_WS2801.RGB_to_color(0, 0, 0))
 
         self.pixels.show()
 
@@ -104,7 +104,7 @@ class theLEDs(threading.Thread):
         for i in range(self.PIXEL_COUNT):
             self.pixels.set_pixel(i, Adafruit_WS2801.RGB_to_color(150, 150, 150))
         self.pixels.show()
-
+        
     def off(self):
         self.pixels.clear()
         self.pixels.show()
