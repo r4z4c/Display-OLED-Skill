@@ -8,7 +8,7 @@ from os.path import dirname, abspath
 
 sys.path.append(abspath(dirname(__file__)))
 
-#import LED, DISPLAY
+import LED#, DISPLAY
 
 import RPi.GPIO as GPIO
 
