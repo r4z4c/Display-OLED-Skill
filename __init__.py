@@ -28,7 +28,7 @@ class DisplayOLEDSkill(MycroftSkill):
         #self.myLEDs.start()
         #self.myDisplay.start()
 
-    @intent_handler(IntentBuilder("TurnAllOffIntent").require("TurnAllOffKeyword"))
+    @intent_handler(IntentBuilder("AllOffIntent").require("AllOffKeyword"))
     def handle_turn_all_off_intent(self, message):
         pass
 
@@ -44,7 +44,7 @@ class DisplayOLEDSkill(MycroftSkill):
         #self.myLEDs.config['show'] = 'on'
         pass
 
-    @intent_handler(IntentBuilder("TurnLEDsOffIntent").require("TurnLEDsOFFKeyword"))
+    @intent_handler(IntentBuilder("TurnLEDsOffIntent").require("TurnLEDsOffKeyword"))
     def handle_turn_leds_off_intent(self, message):
         #self.myLEDs.config['show'] = 'off'
         pass
