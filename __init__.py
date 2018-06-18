@@ -54,7 +54,9 @@ class DisplayOLEDSkill(MycroftSkill):
         self.myDisplay.config['show'] = 'off'
         self.myLEDs.config['show'] = 'off'
         time.sleep(1)
-        os.system("shutdown now -h")
+        command = "/usr/bin/sudo /sbin/shutdown now"
+        process = subprocess.Popen(command.split(), stdout=subprocess.PIPE)
+        output = process.communicate()[0]
 
     def button_stop_alarm(self, channel):
         if GPIO.input(self.pin2) and GPIO.input(self.pin3):
