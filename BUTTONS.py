@@ -33,13 +33,13 @@ class theButtons:
         self.messagebusClient.emit(Message("recognizer_loop:utterance",data={'utterances': 'cancel alarm'}))
         self.messagebusClient.close()
 
-    def button_shutdown(channel, self):
+    def button_shutdown(self, channel):
         self.myDisplay.config['show'] = 'off'
         self.myLEDs.config['show'] = 'off'
         time.sleep(1)
         call(['sudo shutdown now'])
 
-    def button_stop_alarm(channel, self):
+    def button_stop_alarm(self, channel):
         if GPIO.input(self.pin2) and GPIO.input(self.pin3):
             self.messagebusClient.on('connected', self.onConnected)
             # This will block until the client gets closed
