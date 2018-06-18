@@ -13,18 +13,6 @@ class theButtons:
 
     messagebusClient = WebsocketClient()
 
-    def __init__(self, theDisplay, theLEDs):
-        self.myDisplay = theDisplay
-        self.myLEDs = theLEDs
-
-        GPIO.setmode(GPIO.BCM)
-        GPIO.setup(17, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-        GPIO.setup(23, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-        GPIO.setup(24, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-        GPIO.add_event_detect(17, GPIO.RISING, callback=button_shutdown())
-        GPIO.add_event_detect(23, GPIO.RISING, callback=button_stop_alarm())
-        GPIO.add_event_detect(24, GPIO.RISING, callback=button_stop_alarm())
-
     def onConnected(self, event=None):
         self.messagebusClient.emit(Message("recognizer_loop:utterance",data={'utterances': 'cancel alarm'}))
         self.messagebusClient.close()
@@ -40,3 +28,15 @@ class theButtons:
             self.messagebusClient.on('connected', self.onConnected)
             # This will block until the client gets closed
             self.messagebusClient.run_forever()
+
+    def __init__(self, theDisplay, theLEDs):
+        self.myDisplay = theDisplay
+        self.myLEDs = theLEDs
+
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setup(17, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+        GPIO.setup(23, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+        GPIO.setup(24, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+        GPIO.add_event_detect(17, GPIO.RISING, callback=button_shutdown())
+        GPIO.add_event_detect(23, GPIO.RISING, callback=button_stop_alarm())
+        GPIO.add_event_detect(24, GPIO.RISING, callback=button_stop_alarm())
