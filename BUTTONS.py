@@ -13,17 +13,21 @@ class theButtons:
 
     messagebusClient = WebsocketClient()
 
+    pin1 = 17
+    pin2 = 27
+    pin3 = 22
+
     def __init__(self, theDisplay, theLEDs):
         self.myDisplay = theDisplay
         self.myLEDs = theLEDs
 
         GPIO.setmode(GPIO.BCM)
-        GPIO.setup(17, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-        GPIO.setup(23, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-        GPIO.setup(24, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-        GPIO.add_event_detect(17, GPIO.RISING, callback=self.button_shutdown())
-        GPIO.add_event_detect(23, GPIO.RISING, callback=self.button_stop_alarm())
-        GPIO.add_event_detect(24, GPIO.RISING, callback=self.button_stop_alarm())
+        GPIO.setup(pin1, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+        GPIO.setup(pin2, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+        GPIO.setup(pin3, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+        GPIO.add_event_detect(pin1, GPIO.RISING, callback=self.button_shutdown())
+        GPIO.add_event_detect(pin2, GPIO.RISING, callback=self.button_stop_alarm())
+        GPIO.add_event_detect(pin3, GPIO.RISING, callback=self.button_stop_alarm())
 
     def onConnected(self, event=None):
         self.messagebusClient.emit(Message("recognizer_loop:utterance",data={'utterances': 'cancel alarm'}))
@@ -36,7 +40,7 @@ class theButtons:
         call(['sudo shutdown now'])
 
     def button_stop_alarm(self, channel):
-        if GPIO.input(23) and GPIO.input(24):
+        if GPIO.input(pin2) and GPIO.input(pin3):
             self.messagebusClient.on('connected', self.onConnected)
             # This will block until the client gets closed
             self.messagebusClient.run_forever()
