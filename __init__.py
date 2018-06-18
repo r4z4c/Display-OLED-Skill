@@ -8,7 +8,7 @@ from os.path import dirname, abspath
 
 sys.path.append(abspath(dirname(__file__)))
 
-import LED, DISPLAY
+import LED, DISPLAY, BUTTONS
 
 import RPi.GPIO as GPIO
 
@@ -26,7 +26,7 @@ class DisplayOLEDSkill(MycroftSkill):
         super(DisplayOLEDSkill, self).__init__(name="DisplayOLEDSkill")
         self.myLEDs = LED.theLEDs()
         self.myDisplay = DISPLAY.theDisplay()
-        self.myButtons =theButtons()
+        self.myButtons = BUTTONS.theButtons()
         self.myLEDs.start()
         self.myDisplay.start()
 
