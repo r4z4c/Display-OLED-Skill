@@ -1,1 +1,1 @@
-{"LED": {"status": "True", "brightness": "0.05", "show": "time", "r": "0", "g": "255", "b": "0"}, "DISPLAY": {"show": "on"}}
+{"LED": {"status": "True", "brightness": "0.1", "show": "time", "r": "0", "g": "255", "b": "0"}, "DISPLAY": {"show": "off"}}
