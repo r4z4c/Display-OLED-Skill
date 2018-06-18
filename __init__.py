@@ -3,7 +3,7 @@ from adapt.intent import IntentBuilder
 from mycroft.skills.core import MycroftSkill
 from mycroft.util.log import getLogger
 from mycroft import intent_handler
-import threading, sys, time
+import threading, sys, time, os
 from os.path import dirname, abspath
 from mycroft.messagebus.client.ws import WebsocketClient
 from mycroft.messagebus.message import Message
@@ -54,13 +54,12 @@ class DisplayOLEDSkill(MycroftSkill):
         self.myDisplay.config['show'] = 'off'
         self.myLEDs.config['show'] = 'off'
         time.sleep(1)
-        call(['sudo shutdown now'])
+        os.system("shutdown now -h")
 
     def button_stop_alarm(self, channel):
         if GPIO.input(self.pin2) and GPIO.input(self.pin3):
             self.messagebusClient.on('connected', self.onConnected)
-            # This will block until the client gets closed
-            self.messagebusClient.run_forever()
+            time.sleep(1)
 
     @intent_handler(IntentBuilder("AllOffIntent").require("AllOff"))
     def handle_turn_all_off_intent(self, message):
