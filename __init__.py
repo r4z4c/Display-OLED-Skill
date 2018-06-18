@@ -20,11 +20,13 @@ class DisplayOLEDSkill(MycroftSkill):
 
     myLEDs = None
     myDisplay = None
+    myButtons = None
 
     def __init__(self):
         super(DisplayOLEDSkill, self).__init__(name="DisplayOLEDSkill")
         self.myLEDs = LED.theLEDs()
         self.myDisplay = DISPLAY.theDisplay()
+        self.myButtons =theButtons()
         self.myLEDs.start()
         self.myDisplay.start()
 
@@ -58,9 +60,22 @@ class DisplayOLEDSkill(MycroftSkill):
     def handle_show_time_intent(self, message):
         self.myLEDs.config['show'] = 'time'
 
+    @intent_handler(IntentBuilder("BrightnessUpIntent").require("BrightnessUp"))
+    def brightness_up_intent(self, message):
+        self.myLEDs.config['brightness'] += 0.3
+        if self.myLEDs.config['brightness'] > 1:
+            self.myLEDs.config['brightness'] = 1
+
+    @intent_handler(IntentBuilder("BrightnessDownIntent").require("BrightnessDown"))
+    def brightness_up_intent(self, message):
+        self.myLEDs.config['brightness'] -= 0.3
+        if self.myLEDs.config['brightness'] < 0.1:
+            self.myLEDs.config['brightness'] = 0.1
 
     def stop(self):
-        pass
+        self.myDisplay.config['show'] = 'off'
+        self.myLEDs.config['show'] = 'off'
+
 
 def create_skill():
     return DisplayOLEDSkill()

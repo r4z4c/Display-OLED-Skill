@@ -5,9 +5,6 @@ import Adafruit_GPIO.SPI as SPI
 import RPi.GPIO as GPIO
 
 import time, datetime, threading, json, sys
-from os.path import dirname, abspath
-
-sys.path.append(abspath(dirname(__file__)))
 
 # Adafruit_WS2801.RGB_to_color(pos * 3, 255 - pos * 3, 0)
 # pixels.count()
