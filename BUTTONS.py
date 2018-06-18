@@ -25,9 +25,9 @@ class theButtons:
         GPIO.setup(self.pin1, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
         GPIO.setup(self.pin2, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
         GPIO.setup(self.pin3, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-        GPIO.add_event_detect(self.pin1, GPIO.RISING, self.button_shutdown(self))
-        GPIO.add_event_detect(self.pin2, GPIO.RISING, self.button_stop_alarm(self))
-        GPIO.add_event_detect(self.pin3, GPIO.RISING, self.button_stop_alarm(self))
+        GPIO.add_event_detect(self.pin1, GPIO.RISING, callback=self.button_shutdown)
+        GPIO.add_event_detect(self.pin2, GPIO.RISING, callback=self.button_stop_alarm)
+        GPIO.add_event_detect(self.pin3, GPIO.RISING, callback=self.button_stop_alarm)
 
     def onConnected(self, event=None):
         self.messagebusClient.emit(Message("recognizer_loop:utterance",data={'utterances': 'cancel alarm'}))
