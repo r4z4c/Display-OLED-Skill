@@ -26,9 +26,9 @@ class DisplayOLEDSkill(MycroftSkill):
         super(DisplayOLEDSkill, self).__init__(name="DisplayOLEDSkill")
         self.myLEDs = LED.theLEDs()
         self.myDisplay = DISPLAY.theDisplay()
-        self.myButtons = BUTTONS.theButtons()
         self.myLEDs.start()
         self.myDisplay.start()
+        self.myButtons = BUTTONS.theButtons(self.myDisplay, self.myButtons)
 
     @intent_handler(IntentBuilder("AllOffIntent").require("AllOff"))
     def handle_turn_all_off_intent(self, message):
