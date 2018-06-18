@@ -59,9 +59,11 @@ class DisplayOLEDSkill(MycroftSkill):
         output = process.communicate()[0]
 
     def button_stop_alarm(self, channel):
-        if GPIO.input(self.pin2) and GPIO.input(self.pin3):
-            self.messagebusClient.on('connected', self.onConnected)
-            time.sleep(1)
+        while GPIO.input(self.pin2) or GPIO.input(self.pin3):
+            if GPIO.input(self.pin2) and GPIO.input(self.pin3):
+                self.messagebusClient.on('connected', self.onConnected)
+                time.sleep(1)
+                break
 
     @intent_handler(IntentBuilder("AllOffIntent").require("AllOff"))
     def handle_turn_all_off_intent(self, message):
