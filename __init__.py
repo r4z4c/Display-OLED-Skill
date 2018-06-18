@@ -61,7 +61,7 @@ class DisplayOLEDSkill(MycroftSkill):
     def button_stop_alarm(self, channel):
         while GPIO.input(self.pin2) or GPIO.input(self.pin3):
             if GPIO.input(self.pin2) and GPIO.input(self.pin3):
-                call(['/home/pi/bin/say_to_mycroft cancel alarm'])
+                call(['/home/pi/bin/say_to_mycroft', 'cancel alarm'])
                 print("cancel")
                 time.sleep(1)
                 break
