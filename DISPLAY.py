@@ -36,13 +36,13 @@ class theDisplay(threading.Thread):
     x = padding
 
     font_default = ImageFont.load_default()
-    font = ImageFont.truetype("/opt/mycroft/skills/skill-Display-OLED/font/arial.ttf", 12)
-    font_b = ImageFont.truetype("/opt/mycroft/skills/skill-Display-OLED/font/arial.ttf", 20)
-    font_c = ImageFont.truetype("/opt/mycroft/skills/skill-Display-OLED/font/arial.ttf", 14)
+    font = ImageFont.truetype("/opt/mycroft/skills/skill-my-alarm/font/arial.ttf", 12)
+    font_b = ImageFont.truetype("/opt/mycroft/skills/skill-my-alarm/font/arial.ttf", 20)
+    font_c = ImageFont.truetype("/opt/mycroft/skills/skill-my-alarm/font/arial.ttf", 14)
 
     config = {'show': None}
 
-    json_file = "/opt/mycroft/skills/skill-Display-OLED/settings.json"
+    json_file = "/opt/mycroft/skills/skill-my-alarm/settings.json"
 
     def __init__(self):
         threading.Thread.__init__(self)

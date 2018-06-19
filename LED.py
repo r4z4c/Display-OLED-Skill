@@ -33,7 +33,7 @@ class theLEDs(threading.Thread):
 
     config = {'status': None, 'brightness': None, 'show': None, 'r': None, 'g': None, 'b': None}
 
-    json_file = "/opt/mycroft/skills/skill-Display-OLED/settings.json"
+    json_file = "/opt/mycroft/skills/skill-my-alarm/settings.json"
 
     def __init__(self):
         threading.Thread.__init__(self)
