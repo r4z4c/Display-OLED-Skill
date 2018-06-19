@@ -53,7 +53,7 @@ class DisplayOLEDSkill(MycroftSkill):
         self.myDisplay.config['show'] = 'off'
         self.myLEDs.config['show'] = 'off'
         self.speak_dialog("shuttingDown")
-        time.sleep(30)
+        time.sleep(1)
         os.system("systemctl poweroff")
 
     def button_stop_alarm(self, channel):
