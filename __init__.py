@@ -101,7 +101,7 @@ class DisplayOLEDSkill(MycroftSkill):
             self.myLEDs.config['brightness'] = 1
 
     @intent_handler(IntentBuilder("BrightnessDownIntent").require("BrightnessDown"))
-    def brightness_up_intent(self, message):
+    def brightness_down_intent(self, message):
         self.myLEDs.config['brightness'] -= 0.3
         if self.myLEDs.config['brightness'] < 0.1:
             self.myLEDs.config['brightness'] = 0.1
