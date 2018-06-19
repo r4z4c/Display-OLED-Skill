@@ -8,7 +8,6 @@ from os.path import dirname, abspath
 from mycroft.messagebus.client.ws import WebsocketClient
 from mycroft.messagebus.message import Message
 import RPi.GPIO as GPIO
-from subprocess import call
 
 sys.path.append(abspath(dirname(__file__)))
 
@@ -53,10 +52,9 @@ class DisplayOLEDSkill(MycroftSkill):
     def button_shutdown(self, channel):
         self.myDisplay.config['show'] = 'off'
         self.myLEDs.config['show'] = 'off'
-        time.sleep(1)
-        command = "/usr/bin/sudo /sbin/shutdown now"
-        process = subprocess.Popen(command.split(), stdout=subprocess.PIPE)
-        output = process.communicate()[0]
+        self.speak_dialog("shuttingDown")
+        time.sleep(30)
+        os.system("systemctl poweroff")
 
     def button_stop_alarm(self, channel):
         while GPIO.input(self.pin2) or GPIO.input(self.pin3):
