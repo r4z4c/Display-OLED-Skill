@@ -46,7 +46,7 @@ class DisplayOLEDSkill(MycroftSkill):
         GPIO.add_event_detect(self.pin3, GPIO.RISING, callback=self.button_stop_alarm)
 
     def onConnected(self, event=None):
-        self.messagebusClient.emit(Message("recognizer_loop:utterance",data={'utterances': 'cancel alarm'}))
+        self.messagebusClient.emit(Message("recognizer_loop:utterance",data={'utterances': ['cancel alarm']}))
         self.messagebusClient.close()
 
     def button_shutdown(self, channel):
@@ -59,8 +59,8 @@ class DisplayOLEDSkill(MycroftSkill):
     def button_stop_alarm(self, channel):
         while GPIO.input(self.pin2) or GPIO.input(self.pin3):
             if GPIO.input(self.pin2) and GPIO.input(self.pin3):
-                call(['/home/pi/bin/say_to_mycroft', 'cancel alarm'])
-                print("cancel")
+                self.messagebusClient.on('connected', self.onConnected)
+                self.myLEDs.config['show'] = 'light'
                 time.sleep(1)
                 break
 
