@@ -99,7 +99,7 @@ class theLEDs(threading.Thread):
 
     def lighton(self):
         for i in range(self.PIXEL_COUNT):
-            self.pixels.set_pixel(i, Adafruit_WS2801.RGB_to_color(255, 255, 100))
+            self.pixels.set_pixel(i, Adafruit_WS2801.RGB_to_color(255*self.config['brightness'], 200*self.config['brightness'], 150*self.config['brightness']))
         self.pixels.show()
 
     def off(self):
