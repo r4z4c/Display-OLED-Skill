@@ -52,9 +52,9 @@ class DisplayOLEDSkill(MycroftSkill):
     def button_shutdown(self, channel):
         self.myDisplay.config['show'] = 'off'
         self.myLEDs.config['show'] = 'off'
-        self.speak_dialog("shuttingDown")
+        self.speak_dialog("shuttingdown")
         time.sleep(1)
-        os.system("shutdown now")
+        os.system("systemctl poweroff -i")
 
     def button_stop_alarm(self, channel):
         while GPIO.input(self.pin2) or GPIO.input(self.pin3):
@@ -121,6 +121,7 @@ class DisplayOLEDSkill(MycroftSkill):
     def stop(self):
         self.myDisplay.config['show'] = 'off'
         self.myLEDs.config['show'] = 'off'
+
 
 
 def create_skill():

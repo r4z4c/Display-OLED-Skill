@@ -90,6 +90,4 @@ class theDisplay(threading.Thread):
     def reset(self):
         self.disp.clear()
         self.disp.display()
-
-def create():
-    return ShowOnDisplay()
+        self.disp.close()
