@@ -85,9 +85,6 @@ class theDisplay(threading.Thread):
                     self.disp.display()
                     time.sleep(0.1)
 
-
-
-    def reset(self):
+    def stop(self):
         self.disp.clear()
         self.disp.display()
-        self.disp.close()

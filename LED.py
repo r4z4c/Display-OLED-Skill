@@ -49,6 +49,7 @@ class theLEDs(threading.Thread):
 
     def config_led(self, config = {'status': None, 'brightness': None, 'show': None, 'r': None, 'g': None, 'b': None}):
         for c in self.config:
+
             if config[c] is not None:
                 self.config[c] = config[c]
 
@@ -132,3 +133,7 @@ class theLEDs(threading.Thread):
                     self.off()
                     while self.config['show'] == "off":
                         pass
+
+        def stop(self):
+            self.off()
+            GPIO.cleanup()

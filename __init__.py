@@ -79,48 +79,51 @@ class DisplayOLEDSkill(MycroftSkill):
 
     @intent_handler(IntentBuilder("TurnLightOnIntent").require("TurnLightOn"))
     def handle_turn_light_on_intent(self, message):
-        self.myLEDs.config_led(self, config = {'status': None, 'brightness': None, 'show': 'light', 'r': None, 'g': None, 'b': None})
+        self.myLEDs.config_led(config = {'status': None, 'brightness': None, 'show': 'light', 'r': None, 'g': None, 'b': None})
 
     @intent_handler(IntentBuilder("TurnLEDsOffIntent").require("TurnLEDsOff"))
     def handle_turn_leds_off_intent(self, message):
-        self.myLEDs.config_led(self, config = {'status': None, 'brightness': None, 'show': 'off', 'r': None, 'g': None, 'b': None})
+        self.myLEDs.config_led(config = {'status': None, 'brightness': None, 'show': 'off', 'r': None, 'g': None, 'b': None})
 
     @intent_handler(IntentBuilder("ShowDateIntent").require("ShowDate"))
     def handle_Show_date_intent(self, message):
-        self.myLEDs.config_led(self, config = {'status': None, 'brightness': None, 'show': 'date', 'r': None, 'g': None, 'b': None})
-
+        self.myLEDs.config_led(config = {'status': None, 'brightness': None, 'show': 'date', 'r': None, 'g': None, 'b': None})
 
     @intent_handler(IntentBuilder("ShowTimeIntent").require("ShowTime"))
     def handle_show_time_intent(self, message):
-        self.myLEDs.config_led(self, config = {'status': None, 'brightness': None, 'show': 'time', 'r': None, 'g': None, 'b': None})
+        self.myLEDs.config_led(config = {'status': None, 'brightness': None, 'show': 'time', 'r': None, 'g': None, 'b': None})
 
     @intent_handler(IntentBuilder("BrightnessUpIntent").require("BrightnessUp"))
     def brightness_up_intent(self, message):
         brightness = self.myLEDs.config['brightness']
         if brightness == 0.025:
-            self.myLEDs.config_led(self, config = {'status': None, 'brightness': 0.2, 'show': None, 'r': None, 'g': None, 'b': None})
+            brightness = 0.2
         elif brightness == 0.2:
-            self.myLEDs.config_led(self, config = {'status': None, 'brightness': 0.6, 'show': None, 'r': None, 'g': None, 'b': None})
+            brightness = 0.6
         elif brightness == 0.6:
-            self.myLEDs.config_led(self, config = {'status': None, 'brightness': 1, 'show': None, 'r': None, 'g': None, 'b': None})
+            brightness = 1
         else:
-            self.myLEDs.config_led(self, config = {'status': None, 'brightness': 0.025, 'show': None, 'r': None, 'g': None, 'b': None})
+            brightness = 0.025
+
+        config = {'status': None, 'brightness': brightness, 'show': None, 'r': None, 'g': None, 'b': None}
+        self.myLEDs.config_led(config)
 
     @intent_handler(IntentBuilder("BrightnessDownIntent").require("BrightnessDown"))
     def brightness_down_intent(self, message):
         brightness = self.myLEDs.config['brightness']
         if brightness == 1:
-            self.myLEDs.config_led(self, config = {'status': None, 'brightness': 0.6, 'show': None, 'r': None, 'g': None, 'b': None})
+            brightness = 0.6
         elif brightness == 0.6:
-            self.myLEDs.config_led(self, config = {'status': None, 'brightness': 0.2, 'show': None, 'r': None, 'g': None, 'b': None})
-        elif brightness == 0.2:
-            self.myLEDs.config_led(self, config = {'status': None, 'brightness': 0.025, 'show': None, 'r': None, 'g': None, 'b': None})
+            brightness = 0.2
         else:
-            self.myLEDs.config_led(self, config = {'status': None, 'brightness': 0.025, 'show': None, 'r': None, 'g': None, 'b': None})
+            brightness = 0.025
+
+        config = {'status': None, 'brightness': brightness, 'show': None, 'r': None, 'g': None, 'b': None}
+        self.myLEDs.config_led(config)
 
     def stop(self):
-        self.myDisplay.config['show'] = 'off'
-        self.myLEDs.config['show'] = 'off'
+        self.myDisplay.stop()
+        self.myLEDs.stop()
 
 
 
