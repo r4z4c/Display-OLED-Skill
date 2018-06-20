@@ -137,6 +137,6 @@ class theLEDs(threading.Thread):
                     while self.config['show'] == "off":
                         pass
 
-        def stop(self):
-            self.off()
-            GPIO.cleanup()
+    def stop(self):
+        self.off()
+        GPIO.cleanup()

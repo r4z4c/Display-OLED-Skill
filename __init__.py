@@ -57,15 +57,11 @@ class DisplayOLEDSkill(MycroftSkill):
         time.sleep(0.5)
 
     def button_shutdown(self, channel):
-        self.myDisplay.config['show'] = 'off'
-        self.myLEDs.config['show'] = 'off'
         self.speak_dialog("shuttingdown")
         time.sleep(1)
         os.system("systemctl poweroff -i")
 
     def button_restart(self, channel):
-        self.myDisplay.config['show'] = 'off'
-        self.myLEDs.config['show'] = 'off'
         self.speak_dialog("restarting")
         time.sleep(1)
         os.system("systemctl reboot -i")
