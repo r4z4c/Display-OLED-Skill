@@ -58,11 +58,13 @@ class DisplayOLEDSkill(MycroftSkill):
 
     def button_shutdown(self, channel):
         self.speak_dialog("shuttingdown")
+        self.stop()
         time.sleep(1)
         os.system("systemctl poweroff -i")
 
     def button_restart(self, channel):
         self.speak_dialog("restarting")
+        self.stop()
         time.sleep(1)
         os.system("systemctl reboot -i")
 
