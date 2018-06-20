@@ -26,8 +26,8 @@ class DisplayOLEDSkill(MycroftSkill):
 
     messagebusClient = WebsocketClient()
 
-    bshutdown = 17
-    brestart = 4
+    bshutdown = 4
+    brestart = 17
     bsleep1 = 27
     bsleep2 = 22
 
