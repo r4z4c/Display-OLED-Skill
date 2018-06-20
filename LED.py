@@ -49,12 +49,15 @@ class theLEDs(threading.Thread):
 
     def config_led(self, config = {'status': None, 'brightness': None, 'show': None, 'r': None, 'g': None, 'b': None}):
         for c in self.config:
-
             if config[c] is not None:
                 self.config[c] = config[c]
+        json_data = None
+        with open(self.json_file, 'r') as file:
+            json_data = json.load(file)
+            json_data['LED'] = self.config
 
         with open(self.json_file, 'w') as file:
-            json.dump(self.config, file)
+            json.dump(json_data, file)
 
     def set_leds(self, number):
         highnumber = number/10
