@@ -92,7 +92,7 @@ class DisplayOLEDSkill(MycroftSkill):
     @intent_handler(IntentBuilder("AllOffIntent").require("AllOff"))
     def handle_turn_all_off_intent(self, message):
         self.myDisplay.config['show'] = 'off'
-        self.myLEDs.config_led(self, config = {'status': None, 'brightness': None, 'show': 'off', 'r': None, 'g': None, 'b': None})
+        self.myLEDs.config_led(config = {'status': None, 'brightness': None, 'show': 'off', 'r': None, 'g': None, 'b': None})
 
     @intent_handler(IntentBuilder("TurnDisplayOnIntent").require("TurnDisplayOn"))
     def handle_turn_display_on_intent(self, message):
