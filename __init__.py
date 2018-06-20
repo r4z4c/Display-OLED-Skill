@@ -144,11 +144,6 @@ class DisplayOLEDSkill(MycroftSkill):
         config = {'status': None, 'brightness': brightness, 'show': None, 'r': None, 'g': None, 'b': None}
         self.myLEDs.config_led(config)
 
-    @intent_file_handler('stop.intent')
-    def _stop(self, message):
-        """ Wrapper for stop method """
-        self.stop()
-
     def stop(self):
         self.myDisplay.stop()
         self.myLEDs.stop()
