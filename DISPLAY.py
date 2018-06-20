@@ -40,7 +40,7 @@ class theDisplay(threading.Thread):
     font_b = ImageFont.truetype("/opt/mycroft/skills/skill-my-alarm/font/arial.ttf", 20)
     font_c = ImageFont.truetype("/opt/mycroft/skills/skill-my-alarm/font/arial.ttf", 14)
 
-    config = {'show': None}
+    config = {'status': None, 'show': None}
 
     json_file = "/opt/mycroft/skills/skill-my-alarm/settings.json"
 
@@ -51,6 +51,7 @@ class theDisplay(threading.Thread):
         with open(self.json_file, 'r') as file:
             data = json.load(file)
             DISPLAY = data['DISPLAY']
+            self.config['status'] = DISPLAY['status']
             self.config['show'] = DISPLAY['show']
 
         self.name = "myDisplay"
@@ -67,23 +68,24 @@ class theDisplay(threading.Thread):
 
     def run(self):
         while True:
-            if self.config['show'] == "off":
-                self.disp.clear()
-                self.disp.display()
-                while self.config['show'] == "off":
-                    pass
-
-            elif self.config['show'] == "on":
-                while self.config['show'] == "on":
-                    self.draw.rectangle((0,0,self.width,self.height), outline=0, fill=0) #clear display
-                    displayTime = self.myTime.textTime()
-                    self.draw.text((self.x+37, self.top+10), displayTime, font=self.font_b, fill=255)
-                    self.draw.line((self.x, self.top+32, self.x+self.width, self.top+32), fill=255)
-                    displayDate = self.myTime.textDate()
-                    self.draw.text((self.x+12, self.top+34), displayDate, font=self.font_b, fill=255)
-                    self.disp.image(self.image)
+            while self.config['status']:
+                if self.config['show'] == "off":
+                    self.disp.clear()
                     self.disp.display()
-                    time.sleep(0.1)
+                    while self.config['show'] == "off":
+                        pass
+
+                elif self.config['show'] == "on":
+                    while self.config['show'] == "on":
+                        self.draw.rectangle((0,0,self.width,self.height), outline=0, fill=0) #clear display
+                        displayTime = self.myTime.textTime()
+                        self.draw.text((self.x+37, self.top+10), displayTime, font=self.font_b, fill=255)
+                        self.draw.line((self.x, self.top+32, self.x+self.width, self.top+32), fill=255)
+                        displayDate = self.myTime.textDate()
+                        self.draw.text((self.x+12, self.top+34), displayDate, font=self.font_b, fill=255)
+                        self.disp.image(self.image)
+                        self.disp.display()
+                        time.sleep(0.1)
 
     def stop(self):
         self.disp.clear()
