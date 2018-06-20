@@ -24,8 +24,12 @@ class DisplayOLEDSkill(MycroftSkill):
     myLEDs = None
     myDisplay = None
 
+    status = False
+
     messagebusClient = WebsocketClient()
 
+    buttonEntry = None
+    buttonHold = None
     bshutdown = 4
     brestart = 17
     bsleep1 = 27
@@ -45,12 +49,12 @@ class DisplayOLEDSkill(MycroftSkill):
         GPIO.setup(self.bsleep1, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
         GPIO.add_event_detect(self.bshutdown, GPIO.RISING, callback=self.button_shutdown)
         GPIO.add_event_detect(self.brestart, GPIO.RISING, callback=self.button_restart)
-        GPIO.add_event_detect(self.bsleep1, GPIO.BOTH, callback=self.button_stop_alarm)
-        GPIO.add_event_detect(self.bsleep1, GPIO.BOTH, callback=self.button_stop_alarm)
+        GPIO.add_event_detect(self.bsleep1, GPIO.RISING, callback=self.button_stop_alarm)
 
-    def onConnected(self, event=None):
+    def onStopAlarm(self, event=None):
         self.messagebusClient.emit(Message("recognizer_loop:utterance",data={'utterances': ['cancel alarm']}))
         self.messagebusClient.close()
+        time.sleep(0.5)
 
     def button_shutdown(self, channel):
         self.myDisplay.config['show'] = 'off'
@@ -67,11 +71,24 @@ class DisplayOLEDSkill(MycroftSkill):
         os.system("systemctl reboot -i")
 
     def button_stop_alarm(self, channel):
-        while GPIO.input(self.bsleep1) or GPIO.input(self.bsleep1):
-            if GPIO.input(self.bsleep1) and GPIO.input(self.bsleep1):
-                self.messagebusClient.on('connected', self.onConnected)
-                self.myLEDs.config['show'] = 'light'
-                time.sleep(1)
+        while GPIO.input(self.bsleep1):
+            if GPIO.input(self.bsleep1) and GPIO.input(self.bsleep2):
+                self.buttonEntry = time.time()
+                while GPIO.input(self.bsleep1) and GPIO.input(self.bsleep2):
+                    self.buttonHold = time.time()
+                    if self.buttonHold-self.buttonEntry >= 1.5:
+                        if self.status:
+                            self.myLEDs.config['status'] = False
+                            self.myDisplay.config['status'] = False
+                            self.status = False
+                        else:
+                            self.myLEDs.config['status'] = True
+                            self.myDisplay.config['status'] = True
+                            self.status = True
+                        break
+                if self.buttonHold-self.buttonEntry < 1.5:
+                    self.messagebusClient.on('connected', self.onStopAlarm)
+                    self.myLEDs.config['show'] = 'light'
                 break
 
     @intent_handler(IntentBuilder("AllOffIntent").require("AllOff"))
