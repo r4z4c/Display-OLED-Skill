@@ -26,9 +26,10 @@ class DisplayOLEDSkill(MycroftSkill):
 
     messagebusClient = WebsocketClient()
 
-    pin1 = 17
-    pin2 = 27
-    pin3 = 22
+    bshutdown = 17
+    brestart = 4
+    bsleep1 = 27
+    bsleep2 = 22
 
     def __init__(self):
         super(DisplayOLEDSkill, self).__init__(name="DisplayOLEDSkill")
@@ -38,12 +39,14 @@ class DisplayOLEDSkill(MycroftSkill):
         self.myDisplay.start()
 
         GPIO.setmode(GPIO.BCM)
-        GPIO.setup(self.pin1, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-        GPIO.setup(self.pin2, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-        GPIO.setup(self.pin3, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-        GPIO.add_event_detect(self.pin1, GPIO.RISING, callback=self.button_shutdown)
-        GPIO.add_event_detect(self.pin2, GPIO.RISING, callback=self.button_stop_alarm)
-        GPIO.add_event_detect(self.pin3, GPIO.RISING, callback=self.button_stop_alarm)
+        GPIO.setup(self.bshutdown, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+        GPIO.setup(self.brestart, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+        GPIO.setup(self.bsleep1, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+        GPIO.setup(self.bsleep1, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+        GPIO.add_event_detect(self.bshutdown, GPIO.RISING, callback=self.button_shutdown)
+        GPIO.add_event_detect(self.brestart, GPIO.RISING, callback=self.button_restart)
+        GPIO.add_event_detect(self.bsleep1, GPIO.BOTH, callback=self.button_stop_alarm)
+        GPIO.add_event_detect(self.bsleep1, GPIO.BOTH, callback=self.button_stop_alarm)
 
     def onConnected(self, event=None):
         self.messagebusClient.emit(Message("recognizer_loop:utterance",data={'utterances': ['cancel alarm']}))
@@ -56,9 +59,16 @@ class DisplayOLEDSkill(MycroftSkill):
         time.sleep(1)
         os.system("systemctl poweroff -i")
 
+    def button_restart(self, channel):
+        self.myDisplay.config['show'] = 'off'
+        self.myLEDs.config['show'] = 'off'
+        self.speak_dialog("restarting")
+        time.sleep(1)
+        os.system("systemctl reboot -i")
+
     def button_stop_alarm(self, channel):
-        while GPIO.input(self.pin2) or GPIO.input(self.pin3):
-            if GPIO.input(self.pin2) and GPIO.input(self.pin3):
+        while GPIO.input(self.bsleep1) or GPIO.input(self.bsleep1):
+            if GPIO.input(self.bsleep1) and GPIO.input(self.bsleep1):
                 self.messagebusClient.on('connected', self.onConnected)
                 self.myLEDs.config['show'] = 'light'
                 time.sleep(1)
