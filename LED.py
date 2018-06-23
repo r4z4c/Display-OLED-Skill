@@ -127,10 +127,9 @@ class theLEDs(threading.Thread):
                         time.sleep(0.1)
 
                 elif self.config['show'] == "light":
-                    self.lighton(self.config['brightness'])
-                    time.sleep(0.2)
                     while self.config['show'] == "light":
-                        pass
+                        self.lighton(self.config['brightness'])
+                        time.sleep(0.1)
 
                 elif self.config['show'] == "off":
                     self.off()
